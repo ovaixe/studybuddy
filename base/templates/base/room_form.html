@@ -1,0 +1,14 @@
+{% extends 'main.html' %} {% block content %}
+<div>
+  <form method="POST" action="" class="flex flex-col gap-2 text-black">
+    {% csrf_token %}
+
+    {{form.as_p}}
+    <input
+      type="submit"
+      value="Submit"
+      class="bg-green-700 p-1 rounded-lg text-center w-fit"
+    />
+  </form>
+</div>
+{% endblock content %}

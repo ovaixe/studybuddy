@@ -1,11 +1,21 @@
 {% extends 'main.html' %} {% block content %}
-<h1>Home Template</h1>
 
-<div>
-  {% for room in rooms%}
-  <div>
-    <h5>{{room.id}} -- <a href="{% url 'room' room.id %}">{{room.name}}</a></h5>
+<div class="flex flex-col gap-3">
+  <h1>Home Template</h1>
+
+  <a href="{% url 'create-room' %}">Create Room</a>
+
+  <div class="flex flex-col gap-5 items-start">
+    {% for room in rooms%}
+    <div class="flex flex-col gap-2 items-start p-2 bg-blue-800 rounded-lg">
+      <a href="{% url 'update-room' room.id %}">Edit Room</a>
+      <a href="{% url 'delete-room' room.id %}">Delete Room</a>
+      <span>@{{room.host.username}}</span>
+      <h5>{{room.id}} -- <a href="{% url 'room' room.id %}">{{room.name}}</a></h5>
+      {{room.topic.name}}
+      <hr class="">
+    </div>
+    {% endfor%}
   </div>
-  {% endfor%}
+  {% endblock content%}
 </div>
-{% endblock content%}
