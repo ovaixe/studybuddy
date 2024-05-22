@@ -15,8 +15,9 @@
     </form>
   </div>
 
-  <div class="flex flex-row items-center gap-3">
+  <div class="flex flex-row items-center gap-5">
     {% if request.user.is_authenticated %}
+    <p class="text-lg text-sky-400 font-bold">Hello {{request.user}}</p>
     <a href="{% url 'logout' %}">
       <h1 class="text-lg text-sky-950 py-1 px-2 bg-sky-400 rounded-lg">
         Logout
@@ -38,4 +39,4 @@
   </div>
 </div>
 
-<hr />
+<hr class="border-slate-500" />

@@ -1,9 +1,9 @@
 {% extends 'main.html' %} {% block content %}
 
 <div class="flex flex-row gap-5 justify-between">
-  <div class="flex flex-col gap-3">
-    <h4>Browse Topics</h4>
-    <hr />
+  <div class="w-[20%] flex flex-col gap-3">
+    <h4 class="text-lg font-bold">Browse Topics</h4>
+    <hr class="border-slate-500" />
 
     <div>
       <a href="{%url 'home' %}">All</a>
@@ -15,8 +15,10 @@
     {% endfor %}
   </div>
 
-  <div class="flex flex-col gap-5">
-    <h5>{{room_count}} room available</h5>
+  <div class="w-[60%] flex flex-col gap-5">
+    <h5 class="text-sm text-slate-500 font-bold">
+      {{room_count}} room available
+    </h5>
     <a
       href="{% url 'create-room' %}"
       class="bg-sky-400 py-1 px-2 rounded-lg w-fit"
@@ -25,10 +27,11 @@
 
     <div class="flex flex-col gap-3 items-start">
       {% for room in rooms%}
-      <div class="flex flex-col gap-2 items-start p-2 bg-slate-700 rounded-lg">
-        
+      <div
+        class="w-full flex flex-col gap-2 items-start p-2 bg-slate-700 rounded-lg"
+      >
         {% if request.user == room.host %}
-        <div class="flex flex-row gap-3">
+        <div class="flex flex-row gap-3 place-self-end">
           <a
             class="text-xs font-bold bg-sky-400 px-2 py-1 rounded-lg"
             href="{% url 'update-room' room.id %}"
@@ -44,19 +47,19 @@
 
         <span class="text-sky-400">@{{room.host.username}}</span>
         <h5>
-          {{room.id}} --> <a href="{% url 'room' room.id %}">{{room.name}}</a>
+          <a class="text-lg font-bold" href="{% url 'room' room.id %}"
+            >{{room.name}}</a
+          >
         </h5>
-        <span class="text-sm bg-slate-600 px-2 py-1 rounded-full"
+        <span class="text-sm bg-slate-600 px-3 py-1 rounded-full place-self-end"
           >{{room.topic.name}}</span
         >
       </div>
-
-      <hr />
       {% endfor%}
     </div>
   </div>
 
-  <div><h4>Browse Topics</h4></div>
+  <div class="w-[20%]"><h4>Browse Topics</h4></div>
 </div>
 
 {% endblock content%}
