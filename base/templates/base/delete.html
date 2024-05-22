@@ -1,11 +1,23 @@
-{% extends 'main.html' %}
-
-{% block content %}
-<form method="POST" action="" >
+{% extends 'main.html' %} {% block content %}
+<div class="flex items-center justify-center">
+  <form method="POST" action="">
     {% csrf_token %}
 
-    <p>Are you sure you want to delete "{{obj}}"?</p>
-    <a href="{{request.META.HTTP_REFERER}}">Go Back</a>
-    <input type="submit" value="Confirm" />
-</form>
+    <div class="flex flex-col items-center gap-3">
+      <p>Are you sure you want to delete "{{obj}}" ?</p>
+      <div class="flex flex-row gap-3">
+        <a
+          class="text-sm bg-sky-400 py-1 px-2 rounded-lg text-black"
+          href="{{request.META.HTTP_REFERER}}"
+          >Go Back</a
+        >
+        <input
+          class="text-sm bg-sky-400 py-1 px-2 rounded-lg text-black"
+          type="submit"
+          value="Confirm"
+        />
+      </div>
+    </div>
+  </form>
+</div>
 {% endblock content %}

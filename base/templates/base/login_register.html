@@ -1,0 +1,60 @@
+{% extends 'main.html' %} {% block content %} {% if page == 'login' %}
+
+<div class="flex flex-col gap-3 items-center justify-center">
+  <form method="POST" action="" class="flex flex-col gap-5 w-fit items-center">
+    {% csrf_token %}
+
+    <div class="flex flex-row gap-3 items-center">
+      <lable>Username:</lable>
+      <input
+        required
+        type="text"
+        name="username"
+        placeholder="Enter Username"
+        class="rounded-lg bg-slate-700 py-1 px-2 focus:outline-none"
+      />
+    </div>
+
+    <div class="flex flex-row gap-3 items-center">
+      <label>Password:</label>
+      <input
+        required
+        type="password"
+        name="password"
+        placeholder="Enter Password"
+        class="rounded-lg bg-slate-700 py-1 px-2 focus:outline-none"
+      />
+    </div>
+
+    <input
+      type="submit"
+      value="Login"
+      class="text-sky-950 py-1 px-2 bg-sky-400 rounded-lg"
+    />
+  </form>
+
+  <div class="flex flex-row gap-5">
+    <p>haven't signed up yet?</p>
+    <a href="{% url 'register' %}" class="text-sky-400">Register</a>
+  </div>
+</div>
+
+{% else %}
+
+<div class="flex flex-col gap-3 items-center justify-center">
+  <form method="POST" action="" class="flex flex-col gap-5 w-fit items-start">
+    {% csrf_token %} {{form.as_p}}
+    <input
+      type="submit"
+      value="Register"
+      class="text-sky-950 py-1 px-2 bg-sky-400 rounded-lg"
+    />
+  </form>
+
+  <div class="flex flex-row gap-5">
+    <p>Already signed up?</p>
+    <a href="{% url 'login' %}" class="text-sky-400">Login</a>
+  </div>
+</div>
+
+{% endif %} {% endblock content %}
