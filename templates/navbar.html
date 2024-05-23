@@ -1,29 +1,44 @@
+{% load static %}
+
 <div
-  class="flex flex-row items-center justify-between gap-10 px-10 py-3 bg-slate-900 sticky top-0 z-50"
+  class="flex flex-row items-center justify-between gap-10 px-[5%] py-3 bg-slate-900 sticky top-0 z-50"
 >
   <div class="flex flex-row gap-10 items-center">
     <a href="/">
-      <h1 class="text-lg font-bold text-white">StudyBuddy</h1>
+      <h1 class="text-lg font-black text-white">StudyBuddy</h1>
     </a>
     <form method="GET" action="{% url 'home' %}">
       <input
         type="text"
         name="q"
-        placeholder="Search Room..."
-        class="rounded-lg p-1 px-2 bg-slate-600 focus:outline-none"
+        placeholder="Search for Posts"
+        class="rounded-full px-5 py-2 bg-slate-600 focus:outline-none"
       />
     </form>
   </div>
 
   <div class="flex flex-row items-center gap-5">
     {% if request.user.is_authenticated %}
-    <p class="text-lg text-sky-400 font-bold">Hello {{request.user}}</p>
+
+    <a
+      href="{% url 'user-profile' user.id %}"
+      class="flex flex-row items-center gap-3"
+    >
+      <img
+        src="{% static 'images/owais.jpeg' %}"
+        class="w-10 h-10 rounded-full bg-slate-400 object-cover border-2 border-sky-400"
+      />
+      <p class="text-lg font-bold text-sky-400">@{{request.user}}</p>
+    </a>
+
     <a href="{% url 'logout' %}">
       <h1 class="text-lg text-sky-950 py-1 px-2 bg-sky-200 rounded-lg">
         Logout
       </h1>
     </a>
+
     {% else %}
+
     <a href="{% url 'login' %}">
       <h1 class="text-lg text-sky-950 py-1 px-2 bg-sky-200 rounded-lg">
         Login
@@ -35,6 +50,7 @@
         Retister
       </h1>
     </a>
+
     {% endif %}
   </div>
 </div>

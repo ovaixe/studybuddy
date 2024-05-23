@@ -1,29 +1,10 @@
 {% extends 'main.html' %} {% block content %}
 
-<div class="flex flex-row gap-5 justify-between">
+<div class="w-[90%] flex flex-row gap-5">
   <!-- Side Bar -->
-  <div
-    class="w-[20%] h-vp flex flex-col gap-2 bg-slate-700 rounded-lg sticky top-20"
-  >
-    <h4
-      class="text-lg text-slate-300 font-semibold bg-slate-600 p-2 rounded-t-lg"
-    >
-      BROWSE TOPICS
-    </h4>
+  {% include 'base/topics_component.html' %}
 
-    <div class="flex flex-col gap-3 p-2 overflow-y-auto">
-      <div>
-        <a href="{%url 'home' %}">All</a>
-      </div>
-      {% for topic in topics %}
-      <div class="">
-        <a href="{%url 'home' %}?q={{topic.name}}">{{topic.name}}</a>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-
-  <div class="w-[60%] flex flex-col gap-5">
+  <div class="w-[50%] flex flex-col gap-5">
     <div class="flex flex-row items-center justify-between">
       <div>
         <h1 class="text-lg text-slate-300 font-semibold">STUDY ROOMS</h1>
@@ -39,61 +20,11 @@
       >
     </div>
 
-    <div class="flex flex-col gap-3 items-start">
-      {% for room in rooms %}
-      <div
-        class="w-full flex flex-col gap-2 items-start p-2 bg-slate-700 rounded-lg"
-      >
-        {% if request.user == room.host %}
-        <div class="flex flex-row gap-3 place-self-end">
-          <a
-            class="text-xs text-sky-200 font-bold underline"
-            href="{% url 'update-room' room.id %}"
-            >Edit Room</a
-          >
-          <a
-            class="text-xs text-sky-200 font-bold underline"
-            href="{% url 'delete-room' room.id %}"
-            >Delete Room</a
-          >
-        </div>
-        {% endif %}
-
-        <span class="text-sky-400">@{{room.host.username}}</span>
-        <h5>
-          <a class="text-lg font-bold" href="{% url 'room' room.id %}"
-            >{{room.name}}</a
-          >
-        </h5>
-        <span class="text-sm bg-slate-600 px-3 py-1 rounded-full place-self-end"
-          >{{room.topic.name}}</span
-        >
-      </div>
-      {% endfor%}
-    </div>
+    {% include 'base/feed_component.html' %}
   </div>
 
   <!-- Side Bar -->
-  <div
-    class="w-[20%] h-vp flex flex-col gap-2 bg-slate-700 rounded-lg sticky top-20"
-  >
-    <h4
-      class="text-lg text-slate-300 font-semibold bg-slate-600 p-2 rounded-t-lg"
-    >
-      RECENT ACTIVITIES
-    </h4>
-
-    <div class="flex flex-col gap-3 p-2">
-      <div>
-        <a href="{%url 'home' %}">All</a>
-      </div>
-      {% for topic in topics %}
-      <div>
-        <a href="{%url 'home' %}?q={{topic.name}}">{{topic.name}}</a>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
+  {% include 'base/activity_component.html' %}
 </div>
 
 {% endblock content%}

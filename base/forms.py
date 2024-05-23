@@ -34,6 +34,7 @@ class RoomForm(ModelForm):
     class Meta:
         model = Room
         fields = '__all__'
+        exclude = ['host', 'participants']
         widgets = {
             'host': forms.Select(attrs={'class': 'ml-5 rounded-lg bg-slate-700 py-1 px-2 focus:outline-none'}),
             'topic': forms.Select(attrs={'class': 'ml-5 rounded-lg bg-slate-700 py-1 px-2 focus:outline-none'}),
