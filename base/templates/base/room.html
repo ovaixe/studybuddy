@@ -1,73 +1,97 @@
 {% extends 'main.html' %} {% block content%}
-<div class="flex items-center justify-center">
-  <div
-    class="flex flex-col gap-3 items-start justify-center bg-slate-700 rounded-lg p-0 w-[80%]"
-  >
+<div class="flex flex-row gap-5">
+  <div class="w-[80%] flex items-center justify-center">
     <div
-      class="w-full flex flex-row gap-5 items-center bg-slate-600 rounded-t-lg p-3"
+      class="flex flex-col gap-3 items-start justify-center bg-slate-700 rounded-lg p-0"
     >
-      <h1 class="text-lg font-bold">
-        
-      </h1>
-      <h5 class="text-sm text-slate-300 font-bold">STUDY ROOM</h5>
-    </div>
-
-    <div class="w-full flex flex-row items-center justify-between px-5">
-      <h1 class="text-lg text-sky-400 font-bold">{{room.name}}</h1>
-      <h6 class="text-sm text-slate-400 font-bold">
-        {{room.created|timesince}} ago
-      </h6>
-    </div>
-
-    <div class="px-5">
-      <h5 class="text-xs text-slate-500 font-bold">HOSTED BY</h5>
-      <h6 class="text-sm text-sky-400">@{{room.host}}</h6>
-    </div>
-
-    <div class="px-5 flex flex-col gap-3">
-      <p>{{room.description}}</p>
-
-      <h6 class="w-fit text-sm px-3 py-1 rounded-full bg-slate-600">
-        {{room.topic.name}}
-      </h6>
-
       <div
-        class="w-full h-96 overflow-y-auto flex flex-col gap-5 bg-slate-800 px-5 py-2 rounded-lg"
+        class="w-full flex flex-row gap-5 items-center bg-slate-600 rounded-t-lg p-3"
       >
-        <h3 class="text-lg text-slate-400 font-bold">Conversation</h3>
+        <a href="{{request.META.HTTP_REFERER}}" class="text-lg font-bold"><-</a>
+        <h5 class="text-sm text-slate-300 font-bold">STUDY ROOM</h5>
+      </div>
 
-        {% for message in room_messages %}
-        <div class="flex flex-row gap-3">
-          <div class="w-[2px] h-auto bg-slate-700 rounded-full"></div>
+      <div class="w-full flex flex-row items-center justify-between px-5">
+        <h1 class="text-lg text-sky-400 font-bold">{{room.name}}</h1>
+        <h6 class="text-sm text-slate-400 font-bold">
+          {{room.created|timesince}} ago
+        </h6>
+      </div>
 
-          <div class="flex flex-col gap-1 items-start justify-center">
-            <small class="text-sky-400"
-              >@{{message.user}}
-              <sapn class="text-slate-500"
-                >{{message.created|timesince}} ago</sapn
-              ></small
-            >
-            <p class="text-sm">{{message.body}}</p>
+      <div class="px-5">
+        <h5 class="text-xs text-slate-500 font-bold">HOSTED BY</h5>
+        <h6 class="text-sm text-sky-400">@{{room.host}}</h6>
+      </div>
+
+      <div class="px-5 py-3 flex flex-col gap-3">
+        <p>{{room.description}}</p>
+
+        <h6 class="w-fit text-sm px-3 py-1 rounded-full bg-slate-600">
+          {{room.topic.name}}
+        </h6>
+
+        <div
+          class="w-full h-96 overflow-y-auto flex flex-col gap-5 bg-slate-800 px-5 py-2 rounded-lg"
+        >
+          <h3 class="text-lg text-slate-400 font-bold">Conversation</h3>
+
+          {% for message in room_messages %}
+          <div class="flex flex-row gap-3">
+            <div class="w-[2px] h-auto bg-slate-700 rounded-full"></div>
+
+            <div class="flex flex-col gap-1 items-start justify-center">
+              <small class="text-sky-400"
+                >@{{message.user}}{{" "}}
+                <sapn class="text-slate-500"
+                  >{{message.created|timesince}} ago</sapn
+                ></small
+              >
+              <p class="text-sm">{{message.body}}</p>
+              {% if request.user == message.user %}
+              <a
+                href="{% url 'delete-message' message.id %}"
+                class="text-sm text-sky-400"
+                >Delete</a
+              >
+              {% endif %}
+            </div>
           </div>
+          {% endfor %}
         </div>
-        {% endfor %}
+
+        {% if request.user.is_authenticated %}
+        <div class="">
+          <form method="POST" action="">
+            {% csrf_token %}
+
+            <input
+              type="text"
+              name="body"
+              placeholder="Write your message here..."
+              class="bg-slate-600 rounded-lg py-1 px-3 focus:outline-none"
+            />
+          </form>
+        </div>
+        {% endif %}
       </div>
     </div>
+  </div>
 
-    {% if request.user.is_authenticated %}
-    <div class="px-5 py-3">
-      <form method="POST" action="">
-        {% csrf_token %}
+  <!-- Side Bar -->
+  <div
+    class="w-[20%] h-vp flex flex-col gap-2 bg-slate-700 rounded-lg sticky top-20"
+  >
+    <h4 class="text-lg text-slate-300 font-bold bg-slate-600 p-2 rounded-t-lg">
+      Participants
+    </h4>
 
-        <input
-          type="text"
-          name="body"
-          placeholder="Write your message here..."
-          class="bg-slate-600 rounded-lg p-1 focus:outline-none"
-        />
-      </form>
+    <div class="flex flex-col gap-3 p-2">
+      {% for user in participants %}
+      <div>
+        <small class="text-sm text-sky-400">@{{user.username}}</small>
+      </div>
+      {% endfor %}
     </div>
-    {% endif %}
   </div>
 </div>
 {% endblock content%}

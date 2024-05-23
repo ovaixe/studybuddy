@@ -1,44 +1,58 @@
 {% extends 'main.html' %} {% block content %}
 
 <div class="flex flex-row gap-5 justify-between">
-  <div class="w-[20%] flex flex-col gap-3">
-    <h4 class="text-lg font-bold">Browse Topics</h4>
-    <hr class="border-slate-500" />
+  <!-- Side Bar -->
+  <div
+    class="w-[20%] h-vp flex flex-col gap-2 bg-slate-700 rounded-lg sticky top-20"
+  >
+    <h4
+      class="text-lg text-slate-300 font-semibold bg-slate-600 p-2 rounded-t-lg"
+    >
+      BROWSE TOPICS
+    </h4>
 
-    <div>
-      <a href="{%url 'home' %}">All</a>
+    <div class="flex flex-col gap-3 p-2 overflow-y-auto">
+      <div>
+        <a href="{%url 'home' %}">All</a>
+      </div>
+      {% for topic in topics %}
+      <div class="">
+        <a href="{%url 'home' %}?q={{topic.name}}">{{topic.name}}</a>
+      </div>
+      {% endfor %}
     </div>
-    {% for topic in topics %}
-    <div>
-      <a href="{%url 'home' %}?q={{topic.name}}">{{topic.name}}</a>
-    </div>
-    {% endfor %}
   </div>
 
   <div class="w-[60%] flex flex-col gap-5">
-    <h5 class="text-sm text-slate-500 font-bold">
-      {{room_count}} room available
-    </h5>
-    <a
-      href="{% url 'create-room' %}"
-      class="bg-sky-400 py-1 px-2 rounded-lg w-fit"
-      >Create Room</a
-    >
+    <div class="flex flex-row items-center justify-between">
+      <div>
+        <h1 class="text-lg text-slate-300 font-semibold">STUDY ROOMS</h1>
+        <h5 class="text-sm text-slate-500 font-bold">
+          Total {{room_count}} Room Found Near You
+        </h5>
+      </div>
+
+      <a
+        href="{% url 'create-room' %}"
+        class="bg-sky-200 text-lg fong-semibold text-sky-950 py-1 px-2 rounded-lg w-fit"
+        >+ Create Room</a
+      >
+    </div>
 
     <div class="flex flex-col gap-3 items-start">
-      {% for room in rooms%}
+      {% for room in rooms %}
       <div
         class="w-full flex flex-col gap-2 items-start p-2 bg-slate-700 rounded-lg"
       >
         {% if request.user == room.host %}
         <div class="flex flex-row gap-3 place-self-end">
           <a
-            class="text-xs font-bold bg-sky-400 px-2 py-1 rounded-lg"
+            class="text-xs text-sky-200 font-bold underline"
             href="{% url 'update-room' room.id %}"
             >Edit Room</a
           >
           <a
-            class="text-xs font-bold bg-sky-400 px-2 py-1 rounded-lg"
+            class="text-xs text-sky-200 font-bold underline"
             href="{% url 'delete-room' room.id %}"
             >Delete Room</a
           >
@@ -59,7 +73,27 @@
     </div>
   </div>
 
-  <div class="w-[20%]"><h4>Browse Topics</h4></div>
+  <!-- Side Bar -->
+  <div
+    class="w-[20%] h-vp flex flex-col gap-2 bg-slate-700 rounded-lg sticky top-20"
+  >
+    <h4
+      class="text-lg text-slate-300 font-semibold bg-slate-600 p-2 rounded-t-lg"
+    >
+      RECENT ACTIVITIES
+    </h4>
+
+    <div class="flex flex-col gap-3 p-2">
+      <div>
+        <a href="{%url 'home' %}">All</a>
+      </div>
+      {% for topic in topics %}
+      <div>
+        <a href="{%url 'home' %}?q={{topic.name}}">{{topic.name}}</a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
 </div>
 
 {% endblock content%}

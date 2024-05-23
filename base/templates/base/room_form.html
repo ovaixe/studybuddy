@@ -1,11 +1,11 @@
 {% extends 'main.html' %} {% block content %}
-<div>
-  <form method="POST" action="" class="flex flex-col gap-2">
+<div class="flex items-center justify-center">
+  <form method="POST" action="" class="flex flex-col gap-5">
     {% csrf_token %} {{form.as_p}}
     <input
       type="submit"
       value="Submit"
-      class="text-sm bg-green-700 p-1 rounded-lg text-center w-fit"
+      class="text-sm text-sky-950 text-center bg-sky-200 px-3 py-1 rounded-lg text-center w-fit"
     />
   </form>
 </div>
