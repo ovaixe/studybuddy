@@ -1,0 +1,47 @@
+{% extends 'main.html' %} {% load static %} {% block content %}
+<div class="w-[90%] flex flex-row gap-5">
+  {% include 'base/topics_component.html' %}
+
+  <div class="w-[50%] flex flex-col gap-5">
+    <div class="flex flex-col gap-3">
+      <div class="flex flex-col items-center gap-3">
+        <img
+          src="{% static 'images/owais.jpeg' %}"
+          class="w-20 h-20 rounded-full object-cover border-2 border-sky-400"
+        />
+        <div class="flex flex-col items-center gap-2">
+          <h1 class="text-lg font-bold leading-5 text-center">
+            {{user.username}}
+          </h1>
+          <p class="text-sm text-sky-400">@{{user.username}}</p>
+          <button
+            class="text-sm font-bold text-sky-400 border-2 border-sky-400 px-5 p-1 rounded-full"
+          >
+            Edit Profile
+          </button>
+        </div>
+      </div>
+      <div class="flex flex-col gap-2">
+        <h1 class="text-lg font-semibold text-slate-500">ABOUT</h1>
+        <p class="text-sm text-slate-300">
+          Including conversation history is important when user instructions
+          refer to prior messages. In the example above, the user’s final
+          question of "Where was it played?" only makes sense in the context of
+          the prior messages about the World Series of 2020. Because the models
+          have no memory of past requests, all relevant information must be
+          supplied as part of the conversation history in each request. If a
+          conversation cannot fit within the model’s token limit, it will need
+          to be shortened in some way.
+        </p>
+      </div>
+    </div>
+
+    <h1 class="text-lg font-bold text-slate-500">
+      STUDY ROOMS HOSTED BY {{user.username|upper}}
+    </h1>
+    {% include 'base/feed_component.html' %}
+  </div>
+
+  {% include 'base/activity_component.html' %}
+</div>
+{% endblock content %}
