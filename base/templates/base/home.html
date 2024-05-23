@@ -4,6 +4,7 @@
   <!-- Side Bar -->
   {% include 'base/topics_component.html' %}
 
+  <!-- Main Section -->
   <div class="w-[50%] flex flex-col gap-5">
     <div class="flex flex-row items-center justify-between">
       <div>
@@ -15,8 +16,8 @@
 
       <a
         href="{% url 'create-room' %}"
-        class="bg-sky-200 text-lg fong-semibold text-sky-950 py-1 px-2 rounded-lg w-fit"
-        >+ Create Room</a
+        class="flex flex-row items-center gap-2 bg-sky-200 text-lg fong-semibold text-sky-950 py-1 px-2 rounded-lg w-fit"
+        >{% include 'base/create_button.html' %} Create Room</a
       >
     </div>
 

@@ -1,3 +1,4 @@
+from typing import Any
 from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
@@ -11,18 +12,21 @@ class CustomUserCreationForm(UserCreationForm):
         fields = ['username', 'password1', 'password2']
         widgets = {
             'username': forms.TextInput(attrs={
-                'class': 'ml-5 rounded-lg bg-slate-700 py-1 px-2 focus:outline-none',
+                'class': 'w-full text-slate-300 rounded-lg bg-slate-800 py-2 px-3 focus:outline-none',
                 'placeholder': 'Enter your username'
             }),
-            'password1': forms.PasswordInput(attrs={
-                'class': 'ml-5 rounded-lg bg-slate-700 py-1 px-2 focus:outline-none',
-                'placeholder': 'Enter your password'
-            }),
-            'password2': forms.PasswordInput(attrs={
-                'class': 'ml-5 rounded-lg bg-slate-700 py-1 px-2 focus:outline-none',
-                'placeholder': 'Confirm your password'
-            }),
         }
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+        self.fields['password1'].widget.attrs.update({
+                'class': 'w-full text-slate-300 rounded-lg bg-slate-800 py-2 px-3 focus:outline-none',
+                'placeholder': 'Enter your password'
+        })
+        self.fields['password2'].widget.attrs.update({
+                'class': 'w-full text-slate-300 rounded-lg bg-slate-800 py-2 px-3 focus:outline-none',
+                'placeholder': 'Confirm your password'
+        })
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -36,9 +40,7 @@ class RoomForm(ModelForm):
         fields = '__all__'
         exclude = ['host', 'participants']
         widgets = {
-            'host': forms.Select(attrs={'class': 'ml-5 rounded-lg bg-slate-700 py-1 px-2 focus:outline-none'}),
-            'topic': forms.Select(attrs={'class': 'ml-5 rounded-lg bg-slate-700 py-1 px-2 focus:outline-none'}),
-            'name': forms.TextInput(attrs={'class': 'ml-5 rounded-lg bg-slate-700 py-1 px-2 focus:outline-none'}),
-            'description': forms.Textarea(attrs={'class': 'ml-5 rounded-lg bg-slate-700 py-1 px-2 focus:outline-none'}),
-            'participants': forms.Select(attrs={'class': 'ml-5 rounded-lg bg-slate-700 py-1 px-2 focus:outline-none', 'multiple': 'true'})
+            'topic': forms.Select(attrs={'class': 'w-full text-slate-300 rounded-lg bg-slate-800 py-2 px-3 focus:outline-none'}),
+            'name': forms.TextInput(attrs={'class': 'w-full text-slate-300 rounded-lg bg-slate-800 py-2 px-3 focus:outline-none'}),
+            'description': forms.Textarea(attrs={'class': 'w-full text-slate-300 rounded-lg bg-slate-800 py-2 px-3 focus:outline-none'}),
         }

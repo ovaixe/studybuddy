@@ -21,18 +21,21 @@
     <title>StudyBuddy</title>
   </head>
   <body class="bg-slate-800 text-white">
+    <!-- NavBar -->
     {% include 'navbar.html' %}
 
+    <!-- Messages -->
     {% if messages %}
-    <div class="flex items-center justify-center mt-5 fixed top-0 right-[50%]">
-      <ul class="bg-slate-500 py-2 px-5 rounded-lg animate-bounce">
+    <div class="flex items-center justify-center mt-5 fixed top-[60px] right-[50%] z-50">
+      <ul class="bg-sky-200 py-2 px-5 rounded-lg animate-bounce">
         {% for message in messages %}
-        <li class="text-center">{{message}}</li>
+        <li class="text-center text-ls text-slate-950">{{message}}</li>
         {% endfor %}
       </ul>
     </div>
     {% endif %}
 
+    <!-- Main Section -->
     <div class="py-10 flex items-center justify-center">
       {% block content %} {% endblock %}
     </div>

@@ -1,38 +1,18 @@
 {% extends 'main.html' %} {% load static %} {% block content%}
 <div class="w-[80%] flex flex-row gap-5">
+  <!-- Room Box -->
   <div class="w-[80%] flex items-center justify-center">
     <div
       class="w-full flex flex-col gap-3 items-start justify-center bg-slate-700 rounded-lg p-0"
     >
+      <!-- Title Bar -->
       <div
         class="w-full flex flex-row gap-5 items-center justify-between bg-slate-600 rounded-t-lg p-3"
       >
         <div class="flex flex-row items-center gap-5">
-          <a href="{{request.META.HTTP_REFERER}}" class="text-lg font-bold"
-            ><svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              width="24"
-              height="24"
-              color="#000000"
-              fill="none"
-              class="text-slate-300"
-            >
-              <path
-                d="M11 6H15.5C17.9853 6 20 8.01472 20 10.5C20 12.9853 17.9853 15 15.5 15H4"
-                stroke="currentColor"
-                stroke-width="3"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M6.99998 12C6.99998 12 4.00001 14.2095 4 15C3.99999 15.7906 7 18 7 18"
-                stroke="currentColor"
-                stroke-width="3"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              /></svg
-          ></a>
+          <a href="{% url 'home' %}" class="text-lg font-bold"
+            >{% include 'base/back_button.html' %}</a
+          >
           <h5 class="text-sm text-slate-300 font-bold">STUDY ROOM</h5>
         </div>
 
@@ -41,70 +21,18 @@
           <a
             class="text-xs text-sky-200 font-bold underline"
             href="{% url 'update-room' room.id %}"
-            ><svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              width="24"
-              height="24"
-              color="#000000"
-              fill="none"
-              class="text-slate-300"
-            >
-              <path
-                d="M16.2141 4.98239L17.6158 3.58063C18.39 2.80646 19.6452 2.80646 20.4194 3.58063C21.1935 4.3548 21.1935 5.60998 20.4194 6.38415L19.0176 7.78591M16.2141 4.98239L10.9802 10.2163C9.93493 11.2616 9.41226 11.7842 9.05637 12.4211C8.70047 13.058 8.3424 14.5619 8 16C9.43809 15.6576 10.942 15.2995 11.5789 14.9436C12.2158 14.5877 12.7384 14.0651 13.7837 13.0198L19.0176 7.78591M16.2141 4.98239L19.0176 7.78591"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M21 12C21 16.2426 21 18.364 19.682 19.682C18.364 21 16.2426 21 12 21C7.75736 21 5.63604 21 4.31802 19.682C3 18.364 3 16.2426 3 12C3 7.75736 3 5.63604 4.31802 4.31802C5.63604 3 7.75736 3 12 3"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-              /></svg
-          ></a>
+            >{% include 'base/edit_button.html' %}</a
+          >
           <a
             class="text-xs text-sky-200 font-bold underline"
             href="{% url 'delete-room' room.id %}"
-            ><svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              width="24"
-              height="24"
-              color="#000000"
-              fill="none"
-              class="text-slate-300"
-            >
-              <path
-                d="M19.5 5.5L18.8803 15.5251C18.7219 18.0864 18.6428 19.3671 18.0008 20.2879C17.6833 20.7431 17.2747 21.1273 16.8007 21.416C15.8421 22 14.559 22 11.9927 22C9.42312 22 8.1383 22 7.17905 21.4149C6.7048 21.1257 6.296 20.7408 5.97868 20.2848C5.33688 19.3626 5.25945 18.0801 5.10461 15.5152L4.5 5.5"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-              />
-              <path
-                d="M3 5.5H21M16.0557 5.5L15.3731 4.09173C14.9196 3.15626 14.6928 2.68852 14.3017 2.39681C14.215 2.3321 14.1231 2.27454 14.027 2.2247C13.5939 2 13.0741 2 12.0345 2C10.9688 2 10.436 2 9.99568 2.23412C9.8981 2.28601 9.80498 2.3459 9.71729 2.41317C9.32164 2.7167 9.10063 3.20155 8.65861 4.17126L8.05292 5.5"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-              />
-              <path
-                d="M9.5 16.5L9.5 10.5"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-              />
-              <path
-                d="M14.5 16.5L14.5 10.5"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-              /></svg
-          ></a>
+            >{% include 'base/delete_button.html' %}</a
+          >
         </div>
         {% endif %}
       </div>
 
+      <!-- Room Info -->
       <div class="w-full flex flex-row items-center justify-between px-5">
         <h1 class="text-lg text-sky-400 font-bold">{{room.name}}</h1>
         <h6 class="text-sm text-slate-400 font-bold">
@@ -112,6 +40,7 @@
         </h6>
       </div>
 
+      <!-- Host Info -->
       <div class="px-5 flex flex-col gap-2">
         <h5 class="text-xs text-slate-500 font-bold">HOSTED BY</h5>
         <a
@@ -126,6 +55,7 @@
         </a>
       </div>
 
+      <!-- Topic Info and Conversation -->
       <div class="w-full px-5 py-3 flex flex-col gap-3">
         <p>{{room.description}}</p>
 
@@ -142,71 +72,34 @@
           <div class="flex flex-row gap-3">
             <div class="w-[2px] h-auto bg-slate-700 rounded-full"></div>
 
-            <div class="flex flex-col gap-1 items-start justify-center">
-              <div class="flex flex-row items-center gap-5">
-                <a
-                  href="{% url 'user-profile' message.user.id %}"
-                  class="flex flex-row items-center gap-2"
-                >
-                  <img
-                    src="{% static 'images/owais.jpeg' %}"
-                    class="w-8 h-8 rounded-full object-cover border-2 border-sky-400"
-                  />
-                  <small class="text-sky-400">@{{message.user}} </small>
-                </a>
-                <small class="text-slate-500"
-                  >{{message.created|timesince}} ago</small
-                >
-              </div>
+            <div class="w-full flex flex-col gap-1 items-start justify-center">
+              <div class="w-full flex flex-row items-center justify-between">
+                <div class="flex flex-row items-center gap-5">
+                  <a
+                    href="{% url 'user-profile' message.user.id %}"
+                    class="flex flex-row items-center gap-2"
+                  >
+                    <img
+                      src="{% static 'images/owais.jpeg' %}"
+                      class="w-8 h-8 rounded-full object-cover border-2 border-sky-400"
+                    />
+                    <small class="text-sky-400">@{{message.user}} </small>
+                  </a>
+                  <small class="text-slate-500"
+                    >{{message.created|timesince}} ago</small
+                  >
+                </div>
 
-              <p class="text-sm">{{message.body}}</p>
-
-              {% if request.user == message.user %}
-              <a
-                href="{% url 'delete-message' message.id %}"
-                class="text-sm text-sky-400"
-                >{% if request.user == message.user %}
+                {% if request.user == message.user %}
                 <a
                   href="{% url 'delete-message' message.id %}"
                   class="w-fit text-sm text-sky-400"
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    width="24"
-                    height="24"
-                    color="#000000"
-                    fill="none"
-                    class="text-slate-300"
-                  >
-                    <path
-                      d="M19.5 5.5L18.8803 15.5251C18.7219 18.0864 18.6428 19.3671 18.0008 20.2879C17.6833 20.7431 17.2747 21.1273 16.8007 21.416C15.8421 22 14.559 22 11.9927 22C9.42312 22 8.1383 22 7.17905 21.4149C6.7048 21.1257 6.296 20.7408 5.97868 20.2848C5.33688 19.3626 5.25945 18.0801 5.10461 15.5152L4.5 5.5"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                    />
-                    <path
-                      d="M3 5.5H21M16.0557 5.5L15.3731 4.09173C14.9196 3.15626 14.6928 2.68852 14.3017 2.39681C14.215 2.3321 14.1231 2.27454 14.027 2.2247C13.5939 2 13.0741 2 12.0345 2C10.9688 2 10.436 2 9.99568 2.23412C9.8981 2.28601 9.80498 2.3459 9.71729 2.41317C9.32164 2.7167 9.10063 3.20155 8.65861 4.17126L8.05292 5.5"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                    />
-                    <path
-                      d="M9.5 16.5L9.5 10.5"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                    />
-                    <path
-                      d="M14.5 16.5L14.5 10.5"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                    /></svg
-                ></a>
-                {% endif %}</a
-              >
-              {% endif %}
+                  >{% include 'base/delete_button.html' %}</a
+                >
+                {% endif %}
+              </div>
 
+              <p class="text-sm">{{message.body}}</p>
             </div>
           </div>
           {% endfor %}
@@ -234,9 +127,10 @@
   <div
     class="w-[20%] h-vp flex flex-col gap-2 bg-slate-700 rounded-lg sticky top-[110px]"
   >
-    <h4 class="text-lg text-slate-300 font-bold bg-slate-600 p-2 rounded-t-lg">
-      Participants
-    </h4>
+    <div class="flex flex-row items-center gap-1 bg-slate-600 p-2 rounded-t-lg">
+      <h4 class="text-lg text-slate-300 font-bold">Participants</h4>
+      <p class="text-sm text-sky-400">({{participants.count}} Joined)</p>
+    </div>
 
     <div class="flex flex-col gap-3 p-2">
       {% for user in participants %}

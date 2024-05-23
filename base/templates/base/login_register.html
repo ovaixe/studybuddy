@@ -1,66 +1,103 @@
-{% extends 'main.html' %} {% block content %}
-
-{% if page == 'login' %}
+{% extends 'main.html' %} {% block content %} {% if page == 'login' %}
 
 <!-- Login Page -->
-<div class="flex flex-col gap-3 items-center justify-center">
-  <form method="POST" action="" class="flex flex-col gap-5 w-fit items-center">
-    {% csrf_token %}
-
-    <div class="flex flex-row gap-3 items-center">
-      <lable>Username:</lable>
-      <input
-        required
-        type="text"
-        name="username"
-        placeholder="Enter Username"
-        class="rounded-lg bg-slate-700 py-1 px-2 focus:outline-none"
-      />
+<div
+  class="flex flex-col gap-3 items-center justify-center bg-slate-700 rounded-lg"
+>
+  <div>
+    <!-- Title Bar -->
+    <div class="flex flex-row items-center gap-5 p-3 bg-slate-500 rounded-t-lg">
+      <a href="{% url 'home' %}">{% include 'base/back_button.html' %}</a>
+      <h4 class="text-lg text-slate-300 font-bold">Login</h4>
     </div>
 
-    <div class="flex flex-row gap-3 items-center">
-      <label>Password:</label>
-      <input
-        required
-        type="password"
-        name="password"
-        placeholder="Enter Password"
-        class="rounded-lg bg-slate-700 py-1 px-2 focus:outline-none"
-      />
+    <!-- Form Section -->
+    <div class="flex flex-col gap-3 p-5">
+      <form
+        method="POST"
+        action=""
+        class="flex flex-col gap-5 w-full items-start"
+      >
+        {% csrf_token %}
+
+        <!-- Username Field -->
+        <div class="w-full flex flex-col gap-2 items-start">
+          <lable class="text-lg text-slate-300">Username</lable>
+          <input
+            required
+            type="text"
+            name="username"
+            placeholder="Enter Username"
+            class="w-full rounded-lg text-slate-300 bg-slate-800 py-2 px-3 focus:outline-none"
+          />
+        </div>
+
+        <!-- Password Field -->
+        <div class="s-full flex flex-col gap-2 items-start">
+          <label class="text-lg text-slate-300">Password</label>
+          <input
+            required
+            type="password"
+            name="password"
+            placeholder="Enter Password"
+            class="w-full rounded-lg text-slate-300 bg-slate-800 py-2 px-3 focus:outline-none"
+          />
+        </div>
+
+        <!-- Login Button -->
+        <input
+          type="submit"
+          value="Login"
+          class="text-sky-950 py-2 px-3 bg-sky-200 rounded-lg cursor-pointer place-self-end"
+        />
+      </form>
+
+      <div class="flex flex-row items-center gap-5">
+        <p class="text-sm text-slate-300">haven't signed up yet?</p>
+        <a href="{% url 'register' %}" class="text-sky-400">Register</a>
+      </div>
     </div>
-
-    <input
-      type="submit"
-      value="Login"
-      class="text-sky-950 py-1 px-2 bg-sky-200 rounded-lg"
-    />
-  </form>
-
-  <div class="flex flex-row gap-5">
-    <p>haven't signed up yet?</p>
-    <a href="{% url 'register' %}" class="text-sky-400">Register</a>
   </div>
 </div>
 
 {% else %}
 
 <!-- Register Page -->
-<div class="flex flex-col gap-3 items-center justify-center">
-  <form method="POST" action="" class="flex flex-col gap-5 w-fit items-start">
-    {% csrf_token %} {{form.as_p}}
-    <input
-      type="submit"
-      value="Register"
-      class="text-sky-950 py-1 px-2 bg-sky-200 rounded-lg"
-    />
-  </form>
+<div
+  class="flex flex-col gap-3 items-center justify-center bg-slate-700 rounded-lg"
+>
+  <!-- Title Bar -->
+  <div class="w-full flex flex-row items-center gap-5 p-3 bg-slate-500 rounded-t-lg">
+    <a href="{% url 'home' %}">{% include 'base/back_button.html' %}</a>
+    <h4 class="text-lg text-slate-300 font-bold">Register</h4>
+  </div>
 
-  <div class="flex flex-row gap-5">
-    <p>Already signed up?</p>
-    <a href="{% url 'login' %}" class="text-sky-400">Login</a>
+  <!-- Form Section -->
+  <div class="flex flex-col gap-3 p-5">
+    <form method="POST" action="" class="flex flex-col gap-5 w-full items-start">
+      {% csrf_token %}
+
+      {% for field in form %}
+      <div class="w-full flex flex-col gap-3">
+        <label class="text-sl text-slate-300">{{field.label}}</label>
+        {{field}}
+        <small class="text-sm text-slate-300">{{field.help_text}}</small>
+      </div>
+      {% endfor %}
+
+      <!-- Register Button -->
+      <input
+        type="submit"
+        value="Register"
+        class="text-sky-950 py-2 px-3 bg-sky-200 rounded-lg cursor-pointer place-self-end"
+      />
+    </form>
+
+    <div class="flex flex-row items-center gap-5">
+      <p class="text-sm text-slate-300">Already signed up?</p>
+      <a href="{% url 'login' %}" class="text-sky-400">Login</a>
+    </div>
   </div>
 </div>
 
-{% endif %}
-
-{% endblock content %}
+{% endif %} {% endblock content %}
