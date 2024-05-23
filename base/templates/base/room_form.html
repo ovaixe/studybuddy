@@ -1,6 +1,6 @@
 {% extends 'main.html' %} {% block content %}
 <div class="flex items-center justify-center">
-  <form method="POST" action="" class="flex flex-col gap-5">
+  <form method="POST" action="" class="flex flex-col items-start gap-5">
     {% csrf_token %} {{form.as_p}}
     <input
       type="submit"

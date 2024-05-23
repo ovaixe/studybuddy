@@ -2,6 +2,7 @@
 
 {% if page == 'login' %}
 
+<!-- Login Page -->
 <div class="flex flex-col gap-3 items-center justify-center">
   <form method="POST" action="" class="flex flex-col gap-5 w-fit items-center">
     {% csrf_token %}
@@ -31,7 +32,7 @@
     <input
       type="submit"
       value="Login"
-      class="text-sky-950 py-1 px-2 bg-sky-400 rounded-lg"
+      class="text-sky-950 py-1 px-2 bg-sky-200 rounded-lg"
     />
   </form>
 
@@ -43,6 +44,7 @@
 
 {% else %}
 
+<!-- Register Page -->
 <div class="flex flex-col gap-3 items-center justify-center">
   <form method="POST" action="" class="flex flex-col gap-5 w-fit items-start">
     {% csrf_token %} {{form.as_p}}
