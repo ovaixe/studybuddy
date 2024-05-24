@@ -1,6 +1,6 @@
 {% extends 'main.html' %} {% block content %}
-<div class="flex items-center justify-center">
-  <div class="flex flex-col rounded-lg bg-slate-700">
+<div class="w-[50%] flex items-center justify-center">
+  <div class="w-full flex flex-col rounded-lg bg-slate-700">
     <!-- Title Bar -->
     <div class="flex flex-row items-center gap-5 bg-slate-500 rounded-t-lg p-3">
       <a href="{% url 'home' %}">{% include 'base/back_button.html' %}</a>
@@ -12,23 +12,58 @@
       {% csrf_token %}
 
       <div class="flex flex-col items-start gap-5">
-        {% for field in form %}
         <div class="w-full flex flex-col items-start justify-start gap-3">
-          <label class="text-lg text-slate-300">{{field.label}}</label>
-          {{field}}
+          <label class="text-lg text-slate-300">Topic</label>
+          <input
+            required
+            type="text"
+            name="topic"
+            value="{{room.topic.name}}"
+            list="topic-list"
+            placeholder="Enter a topic"
+            class="w-full text-slate-300 rounded-lg bg-slate-800 py-2 px-3 focus:outline-none"
+          />
+          <datalist id="topic-list">
+            <select id="room_topic">
+              {% for topic in topics %}
+              <option value="{{topic.name}}">{{topic.name}}</option>
+              {% endfor %}
+            </select>
+          </datalist>
         </div>
-        {% endfor %}
+
+        <div class="w-full flex flex-col items-start justify-start gap-3">
+          <label class="text-lg text-slate-300">Room Name</label>
+          <input
+            required
+            type="text"
+            name="name"
+            value="{{room.name}}"
+            placeholder="Enter a room name"
+            class="w-full text-slate-300 rounded-lg bg-slate-800 py-2 px-3 focus:outline-none"
+          />
+        </div>
+
+        <div class="w-full flex flex-col items-start justify-start gap-3">
+          <label class="text-lg text-slate-300">Description</label>
+          <textarea
+            name="description"
+            rows="5"
+            placeholder="Enter room description"
+            class="w-full text-slate-300 rounded-lg bg-slate-800 py-2 px-3 focus:outline-none"
+          >{{room.description}}</textarea>
+        </div>
       </div>
 
       <div class="w-full flex flex-row items-center justify-end gap-5">
-        <input
-          type="submit"
-          value="Cancel"
+        <a
+          href="{% url 'room' room.id %}"
           class="text-sm text-slate-300 text-center bg-slate-500 px-5 py-2 rounded-lg text-center w-fit cursor-pointer"
-        />
+          >Cancel</a
+        >
         <input
           type="submit"
-          value="Create Room"
+          value="Submit"
           class="text-sm text-sky-950 text-center bg-sky-200 px-5 py-2 rounded-lg text-center w-fit cursor-pointer"
         />
       </div>

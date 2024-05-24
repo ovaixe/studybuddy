@@ -34,6 +34,15 @@ class CustomUserCreationForm(UserCreationForm):
             user.save()
         return user
 
+class UserForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'w-full text-slate-300 rounded-lg bg-slate-800 py-2 px-3 focus:outline-none'}),
+            'email': forms.TextInput(attrs={'class': 'w-full text-slate-300 rounded-lg bg-slate-800 py-2 px-3 focus:outline-none'}),
+        }
+
 class RoomForm(ModelForm):
     class Meta:
         model = Room

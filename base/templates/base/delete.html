@@ -1,22 +1,28 @@
 {% extends 'main.html' %} {% block content %}
-<div class="flex items-center justify-center">
-  <form method="POST" action="">
+<div class="flex flex-col items-center justify-center bg-slate-700 rounded-lg">
+  <!-- Title Bar -->
+  <div
+    class="w-full flex flex-row items-center gap-5 bg-slate-600 p-3 rounded-t-lg"
+  >
+    <a href="{{request.META.HTTP_REFERER}}"
+      >{% include 'base/back_button.html' %}</a
+    >
+    <h4 class="text-lg text-slate-300 font-bold">Back</h4>
+  </div>
+
+  <!-- Form Section -->
+  <form method="POST" action="" class="p-10">
     {% csrf_token %}
 
-    <div class="flex flex-col items-center gap-3">
-      <p>Are you sure you want to delete "{{obj}}" ?</p>
-      <div class="flex flex-row gap-3">
-        <a
-          class="text-sm bg-sky-200 py-1 px-2 rounded-lg text-sky-950"
-          href="{{request.META.HTTP_REFERER}}"
-          >Go Back</a
-        >
-        <input
-          class="text-sm bg-sky-200 py-1 px-2 rounded-lg text-sky-950"
-          type="submit"
-          value="Confirm"
-        />
-      </div>
+    <div class="flex flex-col items-start gap-5">
+      <p class="text-lg text-slate-300">
+        Are you sure you want to delete "{{obj}}" ?
+      </p>
+      <input
+        class="text-sm bg-sky-200 py-2 px-3 rounded-lg text-sky-950"
+        type="submit"
+        value="Confirm"
+      />
     </div>
   </form>
 </div>
