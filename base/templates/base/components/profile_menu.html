@@ -3,32 +3,37 @@
   class="hidden flex flex-col items-start gap-3 bg-slate-700 border-2 border-sky-200 rounded-lg p-3 absolute top-10 right-0"
 >
   {% if request.user.is_authenticated %}
+  <!-- Username -->
   <p class="text-sm font-bold text-sky-400 place-self-center">
     @{{request.user}}
   </p>
 
+  <!-- Logout Button -->
   <a
     href="{% url 'logout' %}"
     class="flex flex-row items-center gap-2 text-sky-200"
   >
-    {% include 'base/logout_button.html' %}
+    {% include 'base/components/logout_button.html' %}
     <p class="text-sm font-bold">Logout</p>
   </a>
 
   {% else%}
+
+  <!-- Login Button -->
   <a
     href="{% url 'login' %}"
     class="flex flex-row items-center gap-2 text-sky-200"
   >
-    {% include 'base/login_button.html' %}
+    {% include 'base/components/login_button.html' %}
     <p class="text-sm font-bold">Login</p>
   </a>
 
+  <!-- Register Button -->
   <a
     href="{% url 'register' %}"
     class="flex flex-row items-center gap-2 text-sky-200"
   >
-    {% include 'base/login_button.html' %}
+    {% include 'base/components/login_button.html' %}
     <p class="text-sm font-bold">Register</p>
   </a>
   {% endif %}

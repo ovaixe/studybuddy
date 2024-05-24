@@ -6,13 +6,13 @@
     id="topics-sidebar"
     class="md:w-[30%] lg:w-[25%] h-vp sticky top-[110px]"
   >
-    {% include 'base/topics_component.html' %}
+    {% include 'base/components/topics_component.html' %}
   </div>
 
   <!-- Main Section -->
   <div id="home-main-section" class="w-full lg:w-[50%] flex flex-col gap-5">
-    <div id="main-search-bar" class="flex items-center justify-center">
-      {% include 'base/search_bar.html' %}
+    <div id="searchbar" class="flex items-center justify-center">
+      {% include 'base/components/search_bar.html' %}
     </div>
 
     <!-- Buttons -->
@@ -46,11 +46,11 @@
       <a
         href="{% url 'create-room' %}"
         class="flex flex-row items-center gap-1 md:gap-1 lg:gap-2 bg-sky-200 text-nowrap text-sm md:text-sm lg:text-lg fong-semibold text-sky-950 py-1 px-2 rounded-lg"
-        >{% include 'base/create_button.html' %} Create Room</a
+        >{% include 'base/components/create_button.html' %} Create Room</a
       >
     </div>
 
-    {% include 'base/feed_component.html' %}
+    {% include 'base/components/feed_component.html' %}
   </div>
 
   <!-- Side Bar -->
@@ -58,7 +58,7 @@
     id="activity-sidebar"
     class="md:w-[30%] lg:w-[25%] h-vp sticky top-[110px]"
   >
-    {% include 'base/activity_component.html' %}
+    {% include 'base/components/activity_component.html' %}
   </div>
 </div>
 

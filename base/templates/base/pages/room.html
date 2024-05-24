@@ -1,6 +1,25 @@
 {% extends 'main.html' %} {% load static %} {% block content%}
 <div class="w-full lg:w-[80%] flex flex-col items-center gap-5">
-  <div id="room-searchbar">{% include 'base/search_bar.html' %}</div>
+  <!-- Search Bar -->
+  <div id="searchbar">{% include 'base/components/search_bar.html' %}</div>
+
+  <!-- Buttons -->
+  <div class="w-full flex flex-row gap-3 justify-between">
+    <button
+      id="participants-button"
+      class="border-2 border-sky-200 rounded-full text-sm font-bold p-2"
+    >
+      Participants
+    </button>
+    <button
+      id="activity-button"
+      class="border-2 border-sky-200 rounded-full text-sm font-bold p-2"
+    >
+      Recent Activities
+    </button>
+  </div>
+
+  <!-- Main Section -->
   <div class="w-full flex flex-row gap-5">
     <!-- Room Box -->
     <div class="w-full lg:w-[70%] flex items-center justify-center">
@@ -13,9 +32,11 @@
         >
           <div class="flex flex-row items-center gap-5">
             <a href="{% url 'home' %}" class="text-lg font-bold"
-              >{% include 'base/back_button.html' %}</a
+              >{% include 'base/components/back_button.html' %}</a
             >
-            <h5 class="text-sm text-slate-300 font-semibold lg:font-bold">STUDY ROOM</h5>
+            <h5 class="text-sm text-slate-300 font-semibold lg:font-bold">
+              STUDY ROOM
+            </h5>
           </div>
 
           {% if request.user == room.host %}
@@ -23,20 +44,24 @@
             <a
               class="text-xs text-sky-200 font-bold underline"
               href="{% url 'update-room' room.id %}"
-              >{% include 'base/edit_button.html' %}</a
+              >{% include 'base/components/edit_button.html' %}</a
             >
             <a
               class="text-xs text-sky-200 font-bold underline"
               href="{% url 'delete-room' room.id %}"
-              >{% include 'base/delete_button.html' %}</a
+              >{% include 'base/components/delete_button.html' %}</a
             >
           </div>
           {% endif %}
         </div>
 
         <!-- Room Info -->
-        <div class="w-full flex flex-row gap-3 items-start justify-between px-2 lg:px-5">
-          <h1 class="text-sm lg:text-lg text-sky-400 font-bold text-nowrap">{{room.name}}</h1>
+        <div
+          class="w-full flex flex-row gap-3 items-start justify-between px-2 lg:px-5"
+        >
+          <h1 class="text-sm lg:text-lg text-sky-400 font-bold text-nowrap">
+            {{room.name}}
+          </h1>
           <h6 class="text-sm text-slate-400 lg:font-bold">
             {{room.created|timesince}} ago
           </h6>
@@ -61,6 +86,7 @@
         <div class="w-full px-2 lg:px-5 py-3 flex flex-col gap-3">
           <p>{{room.description}}</p>
 
+          <!-- Topic Name -->
           <h6 class="w-fit text-sm px-3 py-1 rounded-full bg-slate-600">
             {{room.topic.name}}
           </h6>
@@ -102,7 +128,7 @@
                     <a
                       href="{% url 'delete-message' message.id %}"
                       class="w-fit text-sm text-sky-400"
-                      >{% include 'base/delete_button.html' %}</a
+                      >{% include 'base/components/delete_button.html' %}</a
                     >
                     {% endif %}
                   </div>
@@ -133,34 +159,8 @@
     </div>
 
     <!-- Side Bar -->
-    <div
-      id="participants"
-      class="w-[30%] h-vp flex flex-col gap-2 bg-slate-700 rounded-lg sticky top-[110px]"
-    >
-      <div
-        class="flex flex-row items-center gap-1 bg-slate-600 p-2 rounded-t-lg"
-      >
-        <h4 class="text-lg text-slate-300 font-bold">Participants</h4>
-        <p class="text-sm text-sky-400">({{participants.count}} Joined)</p>
-      </div>
-
-      <div class="flex flex-col gap-3 p-2">
-        {% for user in participants %}
-        <a
-          href="{% url 'user-profile' user.id %}"
-          class="w-fit flex flex-row items-center gap-2"
-        >
-          <img
-            src="{% static 'images/owais.jpeg' %}"
-            class="w-10 h-10 rounded-full object-cover border-2 border-sky-400"
-          />
-          <div class="flex flex-col">
-            <small class="text-sm text-slate-300">{{user.username}}</small>
-            <small class="text-sm text-sky-400">@{{user.username}}</small>
-          </div>
-        </a>
-        {% endfor %}
-      </div>
+    <div id="participants" class="w-[30%] h-vp sticky top-[110px]">
+      {% include 'base/components/participants_component.html' %}
     </div>
   </div>
 </div>

@@ -7,7 +7,7 @@
   <div class="w-full">
     <!-- Title Bar -->
     <div class="w-full flex flex-row items-center gap-5 p-3 bg-slate-500 rounded-t-lg">
-      <a href="{% url 'home' %}">{% include 'base/back_button.html' %}</a>
+      <a href="{% url 'home' %}">{% include 'base/components/back_button.html' %}</a>
       <h4 class="text-sm lg:text-lg text-slate-300 font-bold">Login</h4>
     </div>
 
@@ -48,7 +48,7 @@
         <div
           class="flex flex-row items-center gap-2 text-sm lg:text-lg text-sky-950 py-1 px-2 lg:py-2 lg:px-3 bg-sky-200 rounded-lg cursor-pointer place-self-end"
         >
-          {% include 'base/login_button.html' %}
+          {% include 'base/components/login_button.html' %}
           <input type="submit" value="Login" class="cursor-pointer" />
         </div>
       </form>
@@ -71,7 +71,7 @@
   <div
     class="w-full flex flex-row items-center gap-5 p-3 bg-slate-500 rounded-t-lg"
   >
-    <a href="{% url 'home' %}">{% include 'base/back_button.html' %}</a>
+    <a href="{% url 'home' %}">{% include 'base/components/back_button.html' %}</a>
     <h4 class="text-sm lg:text-lg text-slate-300 font-bold">Register</h4>
   </div>
 
@@ -94,7 +94,7 @@
       <div
         class="flex flex-row gap-2 text-sm lg:text-lg text-sky-950 py-1 px-2 lg:py-2 lg:px-3 bg-sky-200 rounded-lg cursor-pointer place-self-end"
       >
-        {% include 'base/login_button.html' %}
+        {% include 'base/components/login_button.html' %}
         <input type="submit" value="Register" class="cursor-pointer" />
       </div>
     </form>

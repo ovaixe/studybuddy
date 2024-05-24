@@ -29,7 +29,7 @@ def loginPage(request):
             messages.error(request, "User does not exist")
 
     context = {'page': page}
-    return render(request, 'base/login_register.html', context)
+    return render(request, 'base/pages/login_register.html', context)
 
 def logoutUser(request):
     logout(request)
@@ -51,7 +51,7 @@ def registerPage(request):
             messages.error(request, 'An error occured during registration')
 
     context = {'page': page, 'form': form}
-    return render(request, 'base/login_register.html', context)
+    return render(request, 'base/pages/login_register.html', context)
 
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
@@ -60,7 +60,7 @@ def home(request):
     room_count = rooms.count()
     room_messages = Message.objects.filter(Q(room__topic__name__icontains=q))
     context = {'rooms': rooms, 'topics': topics, 'room_count': room_count, 'room_messages': room_messages, 'q': q}
-    return render(request, 'base/home.html', context)
+    return render(request, 'base/pages/home.html', context)
 
 def room(request, pk):
     room = Room.objects.get(id=pk)
@@ -75,8 +75,9 @@ def room(request, pk):
         )
         room.participants.add(request.user)
         return redirect('room', pk=room.id)
+
     context = {'room': room, 'room_messages': room_messages, 'participants': participants}
-    return render(request, 'base/room.html', context)
+    return render(request, 'base/pages/room.html', context)
 
 def userProfile(request, pk):
      user = User.objects.get(id=pk)
@@ -84,7 +85,8 @@ def userProfile(request, pk):
      room_messages = user.message_set.all()
      topics = Topic.objects.all()
      context = {'user': user, 'rooms': rooms, 'room_messages': room_messages, 'topics': topics}
-     return render(request, 'base/profile.html', context)
+
+     return render(request, 'base/pages/profile.html', context)
 
 @login_required(login_url='login')
 def createRoom(request):
@@ -102,7 +104,7 @@ def createRoom(request):
         return redirect('home')
 
     context = {'form': form, 'topics': topics}
-    return render(request, 'base/room_form.html', context)
+    return render(request, 'base/pages/room_form.html', context)
 
 @login_required(login_url='login')
 def updateRoom(request, pk):
@@ -124,7 +126,7 @@ def updateRoom(request, pk):
         return redirect('home')
 
     context = {'form': form, 'topics': topics, 'room': room}
-    return render(request, 'base/room_form.html', context)
+    return render(request, 'base/pages/room_form.html', context)
 
 @login_required(login_url='login')
 def deleteRoom(request, pk):
@@ -138,7 +140,7 @@ def deleteRoom(request, pk):
         room.delete()
         return redirect('home')
 
-    return render(request, 'base/delete.html', {'obj': room})
+    return render(request, 'base/pages/delete.html', {'obj': room})
 
 @login_required(login_url='login')
 def deleteMessage(request, pk):
@@ -153,7 +155,7 @@ def deleteMessage(request, pk):
         return redirect('home')
 
     context = {'obj': message}
-    return render(request, 'base/delete.html', context)
+    return render(request, 'base/pages/delete.html', context)
 
 @login_required(login_url='login')
 def updateUser(request):
@@ -167,5 +169,6 @@ def updateUser(request):
             return redirect('user-profile', pk=user.id)
         else:
             messages.error(request, 'An error occured during profile update')
+            
     context = {'form': form}
-    return render(request, 'base/update-user.html', context)
+    return render(request, 'base/pages/update-user.html', context)

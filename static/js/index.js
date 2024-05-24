@@ -6,6 +6,10 @@ function main() {
   let browseCloseButton = document.getElementById("browse-close-button");
   let activityButton = document.getElementById("activity-button");
   let activityCloseButton = document.getElementById("activity-close-button");
+  let participantsButton = document.getElementById("participants-button");
+  let participantsCloseButton = document.getElementById(
+    "participants-close-button"
+  );
 
   media();
 
@@ -13,34 +17,79 @@ function main() {
     media();
   });
 
-  profileMenuButton.addEventListener("click", () => {
-    let profileMenu = document.getElementById("profile-menu");
-    toogle(profileMenu);
-  });
+  if (profileMenuButton) {
+    profileMenuButton.addEventListener("click", () => {
+      let profileMenu = document.getElementById("profile-menu");
+      toogle(profileMenu);
+    });
+  }
 
-  browseButton.addEventListener("click", () => {
-    let topicsSidebarMobile = document.getElementById("topics-sidebar-mobile");
-    toogle(topicsSidebarMobile);
-  });
+  if (browseButton) {
+    browseButton.addEventListener("click", () => {
+      let topicsSidebarMobile = document.getElementById(
+        "topics-sidebar-mobile"
+      );
+      let body = document.body;
 
-  browseCloseButton.addEventListener("click", () => {
-    let topicsSidebarMobile = document.getElementById("topics-sidebar-mobile");
-    toogle(topicsSidebarMobile);
-  });
+      body.style.overflow = "hidden";
+      toogle(topicsSidebarMobile);
+    });
+  }
 
-  activityButton.addEventListener("click", () => {
-    let activitySidebarMobile = document.getElementById(
-      "activity-sidebar-mobile"
-    );
-    toogle(activitySidebarMobile);
-  });
+  if (browseCloseButton) {
+    browseCloseButton.addEventListener("click", () => {
+      let topicsSidebarMobile = document.getElementById(
+        "topics-sidebar-mobile"
+      );
+      let body = document.body;
+      body.style.overflow = "auto";
+      toogle(topicsSidebarMobile);
+    });
+  }
 
-  activityCloseButton.addEventListener("click", () => {
-    let activitySidebarMobile = document.getElementById(
-      "activity-sidebar-mobile"
-    );
-    toogle(activitySidebarMobile);
-  });
+  if (activityButton) {
+    activityButton.addEventListener("click", () => {
+      let activitySidebarMobile = document.getElementById(
+        "activity-sidebar-mobile"
+      );
+      let body = document.body;
+      body.style.overflow = "hidden";
+      toogle(activitySidebarMobile);
+    });
+  }
+
+  if (activityCloseButton) {
+    activityCloseButton.addEventListener("click", () => {
+      let activitySidebarMobile = document.getElementById(
+        "activity-sidebar-mobile"
+      );
+      let body = document.body;
+      body.style.overflow = "auto";
+      toogle(activitySidebarMobile);
+    });
+  }
+
+  if (participantsButton) {
+    participantsButton.addEventListener("click", () => {
+      let participantsSidebarMobile = document.getElementById(
+        "participants-sidebar-mobile"
+      );
+      let body = document.body;
+      body.style.overflow = "hidden";
+      toogle(participantsSidebarMobile);
+    });
+  }
+
+  if (participantsCloseButton) {
+    participantsCloseButton.addEventListener("click", () => {
+      let participantsSidebarMobile = document.getElementById(
+        "participants-sidebar-mobile"
+      );
+      let body = document.body;
+      body.style.overflow = "auto";
+      toogle(participantsSidebarMobile);
+    });
+  }
 }
 
 function toogle(element) {
@@ -60,15 +109,15 @@ function media() {
   let profileLogin = document.getElementById("profile-login");
   let profileRegister = document.getElementById("profile-register");
   let profileMenuButton = document.getElementById("profile-menuButton");
-  let navSearchBar = document.getElementById("nav-search-bar");
-  let mainSearchBar = document.getElementById("main-search-bar");
+  let navSearchBar = document.getElementById("nav-searchbar");
+  let mainSearchBar = document.getElementById("searchbar");
   let topicsSidebar = document.getElementById("topics-sidebar");
   let activitySidebar = document.getElementById("activity-sidebar");
   let participants = document.getElementById("participants");
-  let roomSearchbar = document.getElementById("room-searchbar");
+  let roomSearchbar = document.getElementById("searchbar");
   let browseButton = document.getElementById("browse-button");
   let activityButton = document.getElementById("activity-button");
-
+  let participantsButton = document.getElementById("participants-button");
 
   if (deviceWidth < 900) {
     logoName.style.display = "none";
@@ -85,6 +134,7 @@ function media() {
     if (roomSearchbar) roomSearchbar.style.display = "flex";
     if (browseButton) browseButton.style.display = "flex";
     if (activityButton) activityButton.style.display = "flex";
+    if (participantsButton) participantsButton.style.display = "flex";
   } else {
     logoName.style.display = "flex";
     if (profileUsername) profileUsername.style.display = "flex";
@@ -100,5 +150,6 @@ function media() {
     if (roomSearchbar) roomSearchbar.style.display = "none";
     if (browseButton) browseButton.style.display = "none";
     if (activityButton) activityButton.style.display = "none";
+    if (participantsButton) participantsButton.style.display = "none";
   }
 }

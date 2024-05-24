@@ -15,7 +15,7 @@
   </div>
 
   <!-- Search Bar -->
-  <div id="nav-search-bar" class="">{% include 'base/search_bar.html' %}</div>
+  <div id="nav-searchbar" class="">{% include 'base/components/search_bar.html' %}</div>
 
   <!-- Profile Bar -->
   <div class="flex flex-row items-center gap-3">
@@ -42,7 +42,7 @@
       class="flex flex-row items-center bg-sky-200 rounded-lg px-2 py-1 gap-1"
     >
       <h1 class="text-lg text-sky-950">Logout</h1>
-      {% include 'base/logout_button.html' %}
+      {% include 'base/components/logout_button.html' %}
     </a>
 
     {% else %}
@@ -65,9 +65,9 @@
     <!-- Profile Menu Button -->
     <div class="relative">
       <button id="profile-menuButton" class="flex">
-        {% include 'base/menu_button.html' %}
+        {% include 'base/components/menu_button.html' %}
       </button>
-      {% include 'base/profile_menu.html' %}
+      {% include 'base/components/profile_menu.html' %}
     </div>
   </div>
 </div>

@@ -1,0 +1,28 @@
+{% load static %}
+
+<div class="w-full h-full flex flex-col gap-2 bg-slate-700 rounded-lg">
+  <!-- Title Bar -->
+  <div class="flex flex-row items-center gap-1 bg-slate-600 p-2 rounded-t-lg">
+    <h4 class="text-lg text-slate-300 font-bold">Participants</h4>
+    <p class="text-sm text-sky-400">({{participants.count}} Joined)</p>
+  </div>
+
+  <!-- Main Section -->
+  <div class="flex flex-col gap-3 p-2">
+    {% for user in participants %}
+    <a
+      href="{% url 'user-profile' user.id %}"
+      class="w-fit flex flex-row items-center gap-2"
+    >
+      <img
+        src="{% static 'images/owais.jpeg' %}"
+        class="w-10 h-10 rounded-full object-cover border-2 border-sky-400"
+      />
+      <div class="flex flex-col">
+        <small class="text-sm text-slate-300">{{user.username}}</small>
+        <small class="text-sm text-sky-400">@{{user.username}}</small>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</div>
