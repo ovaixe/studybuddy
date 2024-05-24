@@ -1,7 +1,8 @@
 {% load static %}
 
 <div
-  class="w-[25%] h-vp flex flex-col gap-2 bg-slate-700 rounded-lg sticky top-[110px]"
+  id="activity-sidebar"
+  class="md:w-[30%] lg:w-[25%] h-vp flex flex-col gap-2 bg-slate-700 rounded-lg sticky top-[110px]"
 >
   <h4
     class="text-lg text-slate-400 font-semibold bg-slate-600 p-2 rounded-t-lg"
@@ -18,7 +19,8 @@
       <a
         href="{% url 'delete-message' message.id %}"
         class="w-fit text-sm text-sky-400 place-self-end"
-        >{% include 'base/delete_button.html' %}</a>
+        >{% include 'base/delete_button.html' %}</a
+      >
       {% endif %}
 
       <div class="flex flex-row gap-1">

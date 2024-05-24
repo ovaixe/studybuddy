@@ -1,158 +1,166 @@
 {% extends 'main.html' %} {% load static %} {% block content%}
-<div class="w-[80%] flex flex-row gap-5">
-  <!-- Room Box -->
-  <div class="w-[80%] flex items-center justify-center">
-    <div
-      class="w-full flex flex-col gap-3 items-start justify-center bg-slate-700 rounded-lg p-0"
-    >
-      <!-- Title Bar -->
+<div class="w-full lg:w-[80%] flex flex-col items-center gap-5">
+  <div id="room-searchbar">{% include 'base/search_bar.html' %}</div>
+  <div class="w-full flex flex-row gap-5">
+    <!-- Room Box -->
+    <div class="w-full lg:w-[70%] flex items-center justify-center">
       <div
-        class="w-full flex flex-row gap-5 items-center justify-between bg-slate-600 rounded-t-lg p-3"
+        class="w-full flex flex-col gap-3 items-start justify-center bg-slate-700 rounded-lg p-0"
       >
-        <div class="flex flex-row items-center gap-5">
-          <a href="{% url 'home' %}" class="text-lg font-bold"
-            >{% include 'base/back_button.html' %}</a
-          >
-          <h5 class="text-sm text-slate-300 font-bold">STUDY ROOM</h5>
+        <!-- Title Bar -->
+        <div
+          class="w-full flex flex-row gap-5 items-center justify-between bg-slate-600 rounded-t-lg p-3"
+        >
+          <div class="flex flex-row items-center gap-5">
+            <a href="{% url 'home' %}" class="text-lg font-bold"
+              >{% include 'base/back_button.html' %}</a
+            >
+            <h5 class="text-sm text-slate-300 font-semibold lg:font-bold">STUDY ROOM</h5>
+          </div>
+
+          {% if request.user == room.host %}
+          <div class="flex flex-row items-center gap-3">
+            <a
+              class="text-xs text-sky-200 font-bold underline"
+              href="{% url 'update-room' room.id %}"
+              >{% include 'base/edit_button.html' %}</a
+            >
+            <a
+              class="text-xs text-sky-200 font-bold underline"
+              href="{% url 'delete-room' room.id %}"
+              >{% include 'base/delete_button.html' %}</a
+            >
+          </div>
+          {% endif %}
         </div>
 
-        {% if request.user == room.host %}
-        <div class="flex flex-row items-center gap-3">
-          <a
-            class="text-xs text-sky-200 font-bold underline"
-            href="{% url 'update-room' room.id %}"
-            >{% include 'base/edit_button.html' %}</a
-          >
-          <a
-            class="text-xs text-sky-200 font-bold underline"
-            href="{% url 'delete-room' room.id %}"
-            >{% include 'base/delete_button.html' %}</a
-          >
+        <!-- Room Info -->
+        <div class="w-full flex flex-row gap-3 items-start justify-between px-2 lg:px-5">
+          <h1 class="text-sm lg:text-lg text-sky-400 font-bold text-nowrap">{{room.name}}</h1>
+          <h6 class="text-sm text-slate-400 lg:font-bold">
+            {{room.created|timesince}} ago
+          </h6>
         </div>
-        {% endif %}
+
+        <!-- Host Info -->
+        <div class="px-2 lg:px-5 flex flex-col gap-2">
+          <h5 class="text-xs text-slate-500 font-bold">HOSTED BY</h5>
+          <a
+            href="{% url 'user-profile' room.host.id %}"
+            class="flex flex-row items-center gap-2"
+          >
+            <img
+              src="{% static 'images/owais.jpeg' %}"
+              class="w-10 h-10 rounded-full object-cover border-2 border-sky-400"
+            />
+            <h6 class="text-sm text-sky-400">@{{room.host}}</h6>
+          </a>
+        </div>
+
+        <!-- Topic Info and Conversation -->
+        <div class="w-full px-2 lg:px-5 py-3 flex flex-col gap-3">
+          <p>{{room.description}}</p>
+
+          <h6 class="w-fit text-sm px-3 py-1 rounded-full bg-slate-600">
+            {{room.topic.name}}
+          </h6>
+
+          <!-- Conversation -->
+          <div
+            class="w-full h-96 flex flex-col gap-5 bg-slate-800 px-1 lg:px-5 py-2 rounded-lg"
+          >
+            <h3 class="text-lg text-slate-400 font-bold">Conversation</h3>
+
+            <div class="overflow-y-auto flex flex-col gap-5 lg:px-5">
+              {% for message in room_messages %}
+              <div class="flex flex-row gap-3">
+                <div class="w-[2px] h-auto bg-slate-700 rounded-full"></div>
+
+                <div
+                  class="w-full flex flex-col gap-1 items-start justify-center"
+                >
+                  <div
+                    class="w-full flex flex-row items-center justify-between"
+                  >
+                    <div class="flex flex-row items-center gap-5">
+                      <a
+                        href="{% url 'user-profile' message.user.id %}"
+                        class="flex flex-row items-center gap-2"
+                      >
+                        <img
+                          src="{% static 'images/owais.jpeg' %}"
+                          class="w-8 h-8 rounded-full object-cover border-2 border-sky-400"
+                        />
+                        <small class="text-sky-400">@{{message.user}} </small>
+                      </a>
+                      <small class="text-slate-500"
+                        >{{message.created|timesince}} ago</small
+                      >
+                    </div>
+
+                    {% if request.user == message.user %}
+                    <a
+                      href="{% url 'delete-message' message.id %}"
+                      class="w-fit text-sm text-sky-400"
+                      >{% include 'base/delete_button.html' %}</a
+                    >
+                    {% endif %}
+                  </div>
+
+                  <p class="text-sm">{{message.body}}</p>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          {% if request.user.is_authenticated %}
+          <div class="w-full">
+            <form method="POST" action="" class="w-full">
+              {% csrf_token %}
+
+              <input
+                type="text"
+                name="body"
+                placeholder="Write your message here..."
+                class="w-full bg-slate-600 rounded-lg py-1 px-3 focus:outline-none"
+              />
+            </form>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Side Bar -->
+    <div
+      id="participants"
+      class="w-[30%] h-vp flex flex-col gap-2 bg-slate-700 rounded-lg sticky top-[110px]"
+    >
+      <div
+        class="flex flex-row items-center gap-1 bg-slate-600 p-2 rounded-t-lg"
+      >
+        <h4 class="text-lg text-slate-300 font-bold">Participants</h4>
+        <p class="text-sm text-sky-400">({{participants.count}} Joined)</p>
       </div>
 
-      <!-- Room Info -->
-      <div class="w-full flex flex-row items-center justify-between px-5">
-        <h1 class="text-lg text-sky-400 font-bold">{{room.name}}</h1>
-        <h6 class="text-sm text-slate-400 font-bold">
-          {{room.created|timesince}} ago
-        </h6>
-      </div>
-
-      <!-- Host Info -->
-      <div class="px-5 flex flex-col gap-2">
-        <h5 class="text-xs text-slate-500 font-bold">HOSTED BY</h5>
+      <div class="flex flex-col gap-3 p-2">
+        {% for user in participants %}
         <a
-          href="{% url 'user-profile' room.host.id %}"
-          class="flex flex-row items-center gap-2"
+          href="{% url 'user-profile' user.id %}"
+          class="w-fit flex flex-row items-center gap-2"
         >
           <img
             src="{% static 'images/owais.jpeg' %}"
             class="w-10 h-10 rounded-full object-cover border-2 border-sky-400"
           />
-          <h6 class="text-sm text-sky-400">@{{room.host}}</h6>
-        </a>
-      </div>
-
-      <!-- Topic Info and Conversation -->
-      <div class="w-full px-5 py-3 flex flex-col gap-3">
-        <p>{{room.description}}</p>
-
-        <h6 class="w-fit text-sm px-3 py-1 rounded-full bg-slate-600">
-          {{room.topic.name}}
-        </h6>
-
-        <!-- Conversation -->
-        <div
-          class="w-full h-96 flex flex-col gap-5 bg-slate-800 px-5 py-2 rounded-lg"
-        >
-          <h3 class="text-lg text-slate-400 font-bold">Conversation</h3>
-
-          <div class="overflow-y-auto flex flex-col gap-5 px-5">
-            {% for message in room_messages %}
-            <div class="flex flex-row gap-3">
-              <div class="w-[2px] h-auto bg-slate-700 rounded-full"></div>
-
-              <div
-                class="w-full flex flex-col gap-1 items-start justify-center"
-              >
-                <div class="w-full flex flex-row items-center justify-between">
-                  <div class="flex flex-row items-center gap-5">
-                    <a
-                      href="{% url 'user-profile' message.user.id %}"
-                      class="flex flex-row items-center gap-2"
-                    >
-                      <img
-                        src="{% static 'images/owais.jpeg' %}"
-                        class="w-8 h-8 rounded-full object-cover border-2 border-sky-400"
-                      />
-                      <small class="text-sky-400">@{{message.user}} </small>
-                    </a>
-                    <small class="text-slate-500"
-                      >{{message.created|timesince}} ago</small
-                    >
-                  </div>
-
-                  {% if request.user == message.user %}
-                  <a
-                    href="{% url 'delete-message' message.id %}"
-                    class="w-fit text-sm text-sky-400"
-                    >{% include 'base/delete_button.html' %}</a
-                  >
-                  {% endif %}
-                </div>
-
-                <p class="text-sm">{{message.body}}</p>
-              </div>
-            </div>
-            {% endfor %}
+          <div class="flex flex-col">
+            <small class="text-sm text-slate-300">{{user.username}}</small>
+            <small class="text-sm text-sky-400">@{{user.username}}</small>
           </div>
-        </div>
-
-        {% if request.user.is_authenticated %}
-        <div class="w-full">
-          <form method="POST" action="" class="w-full">
-            {% csrf_token %}
-
-            <input
-              type="text"
-              name="body"
-              placeholder="Write your message here..."
-              class="w-full bg-slate-600 rounded-lg py-1 px-3 focus:outline-none"
-            />
-          </form>
-        </div>
-        {% endif %}
+        </a>
+        {% endfor %}
       </div>
-    </div>
-  </div>
-
-  <!-- Side Bar -->
-  <div
-    class="w-[20%] h-vp flex flex-col gap-2 bg-slate-700 rounded-lg sticky top-[110px]"
-  >
-    <div class="flex flex-row items-center gap-1 bg-slate-600 p-2 rounded-t-lg">
-      <h4 class="text-lg text-slate-300 font-bold">Participants</h4>
-      <p class="text-sm text-sky-400">({{participants.count}} Joined)</p>
-    </div>
-
-    <div class="flex flex-col gap-3 p-2">
-      {% for user in participants %}
-      <a
-        href="{% url 'user-profile' user.id %}"
-        class="w-fit flex flex-row items-center gap-2"
-      >
-        <img
-          src="{% static 'images/owais.jpeg' %}"
-          class="w-10 h-10 rounded-full object-cover border-2 border-sky-400"
-        />
-        <div class="flex flex-col">
-          <small class="text-sm text-slate-300">{{user.username}}</small>
-          <small class="text-sm text-sky-400">@{{user.username}}</small>
-        </div>
-      </a>
-      {% endfor %}
     </div>
   </div>
 </div>

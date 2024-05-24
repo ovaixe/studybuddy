@@ -1,15 +1,15 @@
-<div class="w-[25%] px-10 h-vp flex flex-col gap-5 sticky top-[110px]">
+<div id="topics-sidebar" class="md:w-[30%] lg:w-[25%] px-10 h-vp flex flex-col gap-5 sticky top-[110px]">
   <h4 class="text-lg text-slate-500 font-semibold">BROWSE TOPICS</h4>
 
   <div class="flex flex-col gap-3 overflow-y-auto">
-    <div class="flex flex-row items-center justify-between text-slate-300">
+    <div class="flex flex-row items-center justify-between {% if not q or q == '' %} text-sky-400 {% else %} text-slate-300 {% endif %}">
       <a href="{%url 'home' %}">All</a>
       <p class="bg-slate-700 text-sm font-bold px-3 py-1 rounded-sm">
         {{topics.count}}
       </p>
     </div>
     {% for topic in topics %}
-    <div class="flex flex-row items-center justify-between text-slate-300">
+    <div class="flex flex-row items-center justify-between {% if q == topic.name %} text-sky-400 {% else %} text-slate-300 {% endif %}">
       <a href="{%url 'home' %}?q={{topic.name}}">{{topic.name}}</a>
       <p class="bg-slate-700 text-sm font-bold py-1 px-3 rounded-sm">
         {{topic.room_set.all.count}}

@@ -8,11 +8,11 @@
     <!-- Title Bar -->
     <div class="flex flex-row items-center gap-5 p-3 bg-slate-500 rounded-t-lg">
       <a href="{% url 'home' %}">{% include 'base/back_button.html' %}</a>
-      <h4 class="text-lg text-slate-300 font-bold">Login</h4>
+      <h4 class="text-sm lg:text-lg text-slate-300 font-bold">Login</h4>
     </div>
 
     <!-- Form Section -->
-    <div class="flex flex-col gap-3 p-10">
+    <div class="flex flex-col gap-3 p-3 md:p-5 lg:p-10">
       <form
         method="POST"
         action=""
@@ -46,7 +46,7 @@
 
         <!-- Login Button -->
         <div
-          class="flex flex-row gap-2 text-sky-950 py-2 px-3 bg-sky-200 rounded-lg cursor-pointer place-self-end"
+          class="flex flex-row items-center gap-2 text-sm lg:text-lg text-sky-950 py-1 px-2 lg:py-2 lg:px-3 bg-sky-200 rounded-lg cursor-pointer place-self-end"
         >
           {% include 'base/login_button.html' %}
           <input type="submit" value="Login" class="cursor-pointer" />
@@ -55,7 +55,7 @@
 
       <div class="flex flex-row items-center gap-5">
         <p class="text-sm text-slate-300">haven't signed up yet?</p>
-        <a href="{% url 'register' %}" class="text-sky-400">Register</a>
+        <a href="{% url 'register' %}" class="text-sm text-sky-400">Register</a>
       </div>
     </div>
   </div>
@@ -72,11 +72,11 @@
     class="w-full flex flex-row items-center gap-5 p-3 bg-slate-500 rounded-t-lg"
   >
     <a href="{% url 'home' %}">{% include 'base/back_button.html' %}</a>
-    <h4 class="text-lg text-slate-300 font-bold">Register</h4>
+    <h4 class="text-sm lg:text-lg text-slate-300 font-bold">Register</h4>
   </div>
 
   <!-- Form Section -->
-  <div class="flex flex-col gap-3 p-10">
+  <div class="flex flex-col gap-3 p-3 md:p-5 lg:p-10">
     <form
       method="POST"
       action=""
@@ -92,7 +92,7 @@
 
       <!-- Register Button -->
       <div
-        class="flex flex-row gap-2 text-sky-950 py-2 px-3 bg-sky-200 rounded-lg cursor-pointer place-self-end"
+        class="flex flex-row gap-2 text-sm lg:text-lg text-sky-950 py-1 px-2 lg:py-2 lg:px-3 bg-sky-200 rounded-lg cursor-pointer place-self-end"
       >
         {% include 'base/login_button.html' %}
         <input type="submit" value="Register" class="cursor-pointer" />
@@ -101,7 +101,7 @@
 
     <div class="flex flex-row items-center gap-5">
       <p class="text-sm text-slate-300">Already signed up?</p>
-      <a href="{% url 'login' %}" class="text-sky-400">Login</a>
+      <a href="{% url 'login' %}" class="text-sm text-sky-400">Login</a>
     </div>
   </div>
 </div>

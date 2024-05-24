@@ -1,22 +1,28 @@
 {% extends 'main.html' %} {% block content %}
 
-<div class="w-[80%] flex flex-row gap-5">
+<div class="w-full lg:w-[80%] flex flex-row justify-center gap-5">
   <!-- Side Bar -->
   {% include 'base/topics_component.html' %}
 
   <!-- Main Section -->
-  <div class="w-[50%] flex flex-col gap-5">
+  <div id="home-main-section" class="w-full md:w-[40%] lg:w-[50%] flex flex-col gap-5">
+    <div id="main-search-bar" class="flex items-center justify-center">{% include 'base/search_bar.html' %}</div>
+
     <div class="flex flex-row items-center justify-between">
       <div>
-        <h1 class="text-lg text-slate-300 font-semibold">STUDY ROOMS</h1>
-        <h5 class="text-sm text-slate-500 font-bold">
+        <h1
+          class="text-sm md:text-sm lg:text-lg text-slate-300 font-semibold text-nowrap"
+        >
+          STUDY ROOMS
+        </h1>
+        <h5 class="text-sm text-slate-500 md:font-semibold lg:font-bold">
           Total {{room_count}} Room Found Near You
         </h5>
       </div>
 
       <a
         href="{% url 'create-room' %}"
-        class="flex flex-row items-center gap-2 bg-sky-200 text-lg fong-semibold text-sky-950 py-1 px-2 rounded-lg w-fit"
+        class="flex flex-row items-center gap-1 md:gap-1 lg:gap-2 bg-sky-200 text-nowrap text-sm md:text-sm lg:text-lg fong-semibold text-sky-950 py-1 px-2 rounded-lg"
         >{% include 'base/create_button.html' %} Create Room</a
       >
     </div>
