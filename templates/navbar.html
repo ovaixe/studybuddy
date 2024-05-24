@@ -15,11 +15,12 @@
   </div>
 
   <!-- Search Bar -->
-  <div id="nav-search-bar" class=""> {% include 'base/search_bar.html' %}</div>
+  <div id="nav-search-bar" class="">{% include 'base/search_bar.html' %}</div>
 
   <!-- Profile Bar -->
-  <div class="flex flex-row items-center gap-5">
+  <div class="flex flex-row items-center gap-3">
     {% if request.user.is_authenticated %}
+    <!-- User Info -->
     <a
       href="{% url 'user-profile' request.user.id %}"
       class="flex flex-row items-center gap-2"
@@ -34,6 +35,7 @@
       </p>
     </a>
 
+    <!-- Logout -->
     <a
       id="profile-logout"
       href="{% url 'logout' %}"
@@ -42,26 +44,31 @@
       <h1 class="text-lg text-sky-950">Logout</h1>
       {% include 'base/logout_button.html' %}
     </a>
-    <button id="profile-menu" class="flex">
-      {% include 'base/menu_button.html' %}
-    </button>
+
     {% else %}
+
+    <!-- Login -->
     <a id="profile-login" href="{% url 'login' %}">
       <h1 class="text-lg text-sky-950 py-1 px-2 bg-sky-200 rounded-lg">
         Login
       </h1>
     </a>
 
+    <!-- Register -->
     <a id="profile-register" href="{% url 'register' %}">
       <h1 class="text-lg text-sky-950 py-1 px-2 bg-sky-200 rounded-lg">
         Retister
       </h1>
     </a>
-
-    <button id="profile-menu" class="flex">
-      {% include 'base/menu_button.html' %}
-    </button>
     {% endif %}
+
+    <!-- Profile Menu Button -->
+    <div class="relative">
+      <button id="profile-menuButton" class="flex">
+        {% include 'base/menu_button.html' %}
+      </button>
+      {% include 'base/profile_menu.html' %}
+    </div>
   </div>
 </div>
 

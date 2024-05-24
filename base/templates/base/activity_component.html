@@ -1,20 +1,27 @@
 {% load static %}
 
 <div
-  id="activity-sidebar"
-  class="md:w-[30%] lg:w-[25%] h-vp flex flex-col gap-2 bg-slate-700 rounded-lg sticky top-[110px]"
+
+  class="w-full h-full flex flex-col gap-2 bg-slate-700 rounded-lg "
 >
+  <!-- Title Bar -->
   <h4
     class="text-lg text-slate-400 font-semibold bg-slate-600 p-2 rounded-t-lg"
   >
     RECENT ACTIVITY
   </h4>
 
+  <!-- Messages -->
   <div class="flex flex-col gap-5 p-2 overflow-y-auto">
     {% for message in room_messages %}
     <div
       class="flex flex-col gap-3 border-[1px] border-slate-500 rounded-lg p-2"
     >
+    <a
+      href="{% url 'user-profile' message.user.id %}"
+      class="flex flex-row items-center gap-2"
+    >
+      <!-- Delete Button -->
       {% if request.user == message.user %}
       <a
         href="{% url 'delete-message' message.id %}"
@@ -23,7 +30,8 @@
       >
       {% endif %}
 
-      <div class="flex flex-row gap-1">
+      <!-- Activity Info -->
+      <div class="flex flex-row items-start gap-1">
         <a href="{% url 'user-profile' message.user.id %}">
           <img
             src="{% static 'images/owais.jpeg' %}"
@@ -32,12 +40,13 @@
         </a>
 
         <div class="w-full flex flex-col gap-2">
-          <div class="w-full flex flex-row justify-between">
+          <div class="w-full flex flex-row gap-2 justify-between">
             <a
               href="{% url 'user-profile' message.user.id %}"
               class="text-sm text-sky-400"
               >@{{message.user}}
             </a>
+
             <small class="text-sm text-slate-400"
               >{{message.created|timesince}} ago</small
             >
@@ -52,6 +61,7 @@
         </div>
       </div>
 
+      <!-- Message -->
       <div class="flex flex-col gap-3">
         <p class="text-sm bg-slate-800 p-2 rounded-lg">{{message}}</p>
       </div>

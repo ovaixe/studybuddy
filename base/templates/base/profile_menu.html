@@ -1,0 +1,35 @@
+<div
+  id="profile-menu"
+  class="hidden flex flex-col items-start gap-3 bg-slate-700 border-2 border-sky-200 rounded-lg p-3 absolute top-10 right-0"
+>
+  {% if request.user.is_authenticated %}
+  <p class="text-sm font-bold text-sky-400 place-self-center">
+    @{{request.user}}
+  </p>
+
+  <a
+    href="{% url 'logout' %}"
+    class="flex flex-row items-center gap-2 text-sky-200"
+  >
+    {% include 'base/logout_button.html' %}
+    <p class="text-sm font-bold">Logout</p>
+  </a>
+
+  {% else%}
+  <a
+    href="{% url 'login' %}"
+    class="flex flex-row items-center gap-2 text-sky-200"
+  >
+    {% include 'base/login_button.html' %}
+    <p class="text-sm font-bold">Login</p>
+  </a>
+
+  <a
+    href="{% url 'register' %}"
+    class="flex flex-row items-center gap-2 text-sky-200"
+  >
+    {% include 'base/login_button.html' %}
+    <p class="text-sm font-bold">Register</p>
+  </a>
+  {% endif %}
+</div>

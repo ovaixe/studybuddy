@@ -2,13 +2,36 @@
 
 <div class="w-full lg:w-[80%] flex flex-row justify-center gap-5">
   <!-- Side Bar -->
-  {% include 'base/topics_component.html' %}
+  <div
+    id="topics-sidebar"
+    class="md:w-[30%] lg:w-[25%] h-vp sticky top-[110px]"
+  >
+    {% include 'base/topics_component.html' %}
+  </div>
 
   <!-- Main Section -->
-  <div id="home-main-section" class="w-full md:w-[40%] lg:w-[50%] flex flex-col gap-5">
-    <div id="main-search-bar" class="flex items-center justify-center">{% include 'base/search_bar.html' %}</div>
+  <div id="home-main-section" class="w-full lg:w-[50%] flex flex-col gap-5">
+    <div id="main-search-bar" class="flex items-center justify-center">
+      {% include 'base/search_bar.html' %}
+    </div>
 
-    <div class="flex flex-row items-center justify-between">
+    <!-- Buttons -->
+    <div class="flex flex-row gap-3 justify-between">
+      <button
+        id="browse-button"
+        class="border-2 border-sky-200 rounded-full text-sm font-bold p-2"
+      >
+        Browse Topics
+      </button>
+      <button
+        id="activity-button"
+        class="border-2 border-sky-200 rounded-full text-sm font-bold p-2"
+      >
+        Recent Activities
+      </button>
+    </div>
+
+    <div class="flex flex-row gap-3 items-center justify-between">
       <div>
         <h1
           class="text-sm md:text-sm lg:text-lg text-slate-300 font-semibold text-nowrap"
@@ -31,7 +54,12 @@
   </div>
 
   <!-- Side Bar -->
-  {% include 'base/activity_component.html' %}
+  <div
+    id="activity-sidebar"
+    class="md:w-[30%] lg:w-[25%] h-vp sticky top-[110px]"
+  >
+    {% include 'base/activity_component.html' %}
+  </div>
 </div>
 
 {% endblock content%}

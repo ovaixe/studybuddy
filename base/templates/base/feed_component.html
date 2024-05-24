@@ -5,7 +5,8 @@
   <div
     class="w-full flex flex-col gap-3 items-start px-5 py-2 bg-slate-700 rounded-lg"
   >
-    <div class="w-full flex flex-row items-center justify-between">
+    <!-- Room Info -->
+    <div class="w-full flex flex-row gap-3 items-center justify-between">
       <a
         href="{% url 'user-profile' room.host.id %}"
         class="flex flex-row items-center gap-2"
@@ -16,19 +17,19 @@
         />
         <p class="text-sky-400">@{{room.host.username}}</p>
       </a>
-      <p class="text-sm text-slate-400">{{room.created|timesince}} ago</p>
+      <p class="text-xs lg:text-sm text-slate-400">{{room.created|timesince}} ago</p>
     </div>
 
-    <h5>
-      <a
-        class="text-lg text-slate-300 font-bold hover:text-sky-400"
-        href="{% url 'room' room.id %}"
-        >{{room.name}}</a
-      >
-    </h5>
+    <!-- Room Name -->
+    <a
+      class="text-sm lg:text-lg text-slate-300 font-bold hover:text-sky-400"
+      href="{% url 'room' room.id %}"
+      >{{room.name}}</a
+    >
 
     <hr class="w-full border-slate-600" />
 
+    <!-- Room Info -->
     <div class="w-full flex flex-row items-center justify-between">
       <div class="flex flex-row items-end gap-2">
         <svg
@@ -53,11 +54,13 @@
             stroke-width="1.5"
           />
         </svg>
-        <p class="text-sm font-bold text-slate-400">
+        <p class="text-xs lg:text-sm font-bold text-slate-400">
           {{room.participants.all.count}} Joined
         </p>
       </div>
-      <span class="text-sm bg-slate-600 px-3 py-1 rounded-full"
+
+      <!-- Room Topic -->
+      <span class="text-xs lg:text-sm bg-slate-600 px-3 py-1 rounded-full text-nowrap"
         >{{room.topic.name}}</span
       >
     </div>
