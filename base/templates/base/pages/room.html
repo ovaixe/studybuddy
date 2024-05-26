@@ -75,7 +75,7 @@
             class="flex flex-row items-center gap-2"
           >
             <img
-              src="{% static 'images/owais.jpeg' %}"
+              src="{{room.host.userprofile.avatar.url}}"
               class="w-10 h-10 rounded-full object-cover border-2 border-sky-400"
             />
             <h6 class="text-sm text-sky-400">@{{room.host}}</h6>
@@ -114,7 +114,7 @@
                         class="flex flex-row items-center gap-2"
                       >
                         <img
-                          src="{% static 'images/owais.jpeg' %}"
+                          src="{{message.user.userprofile.avatar.url}}"
                           class="w-8 h-8 rounded-full object-cover border-2 border-sky-400"
                         />
                         <small class="text-sky-400">@{{message.user}} </small>

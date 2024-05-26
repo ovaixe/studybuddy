@@ -34,7 +34,7 @@
       <div class="flex flex-row items-start gap-1">
         <a href="{% url 'user-profile' message.user.id %}">
           <img
-            src="{% static 'images/owais.jpeg' %}"
+            src="{{message.user.userprofile.avatar.url}}"
             class="w-12 h-10 rounded-full object-cover border-2 border-sky-400"
           />
         </a>

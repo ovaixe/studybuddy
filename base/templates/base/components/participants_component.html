@@ -15,7 +15,7 @@
       class="w-fit flex flex-row items-center gap-2"
     >
       <img
-        src="{% static 'images/owais.jpeg' %}"
+        src="{{user.userprofile.avatar.url}}"
         class="w-10 h-10 rounded-full object-cover border-2 border-sky-400"
       />
       <div class="flex flex-col">

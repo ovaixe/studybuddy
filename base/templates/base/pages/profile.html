@@ -37,8 +37,8 @@
         <!-- User Info -->
         <div class="flex flex-col items-center gap-3">
           <img
-            src="{% static 'images/owais.jpeg' %}"
-            class="w-20 h-20 rounded-full object-cover border-2 border-sky-400"
+            src="{{user.userprofile.avatar.url}}"
+            class="w-20 h-20 rounded-full object-cover border-2 border-sky-400 bg-slate-600"
           />
 
           <div class="flex flex-col items-center gap-2">
