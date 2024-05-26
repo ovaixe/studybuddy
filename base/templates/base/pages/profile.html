@@ -43,7 +43,11 @@
 
           <div class="flex flex-col items-center gap-2">
             <h1 class="text-lg font-bold leading-5 text-center">
+              {% if user.first_name and user.last_name %}
+              {{user.first_name}} {{user.last_name}}
+              {% else %}
               {{user.username}}
+              {% endif %}
             </h1>
 
             <p class="text-sm text-sky-400">@{{user.username}}</p>
@@ -62,16 +66,11 @@
         <!-- About Section -->
         <div class="flex flex-col gap-2">
           <h1 class="text-lg font-semibold text-slate-500">ABOUT</h1>
+          {% if user.userprofile.bio %}
           <p class="text-sm text-slate-300">
-            Including conversation history is important when user instructions
-            refer to prior messages. In the example above, the user’s final
-            question of "Where was it played?" only makes sense in the context
-            of the prior messages about the World Series of 2020. Because the
-            models have no memory of past requests, all relevant information
-            must be supplied as part of the conversation history in each
-            request. If a conversation cannot fit within the model’s token
-            limit, it will need to be shortened in some way.
+            {{user.userprofile.bio}}
           </p>
+          {% endif %}
         </div>
       </div>
 

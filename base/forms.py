@@ -3,17 +3,29 @@ from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Room
+from .models import Room, UserProfile
 
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username', 'password1', 'password2']
+        fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2']
         widgets = {
+             'first_name': forms.TextInput(attrs={
+                'class': 'w-full text-slate-300 rounded-lg bg-slate-800 py-2 px-3 focus:outline-none',
+                'placeholder': 'Enter your First Name'
+            }),
+             'last_name': forms.TextInput(attrs={
+                'class': 'w-full text-slate-300 rounded-lg bg-slate-800 py-2 px-3 focus:outline-none',
+                'placeholder': 'Enter your Last Name'
+            }),
             'username': forms.TextInput(attrs={
                 'class': 'w-full text-slate-300 rounded-lg bg-slate-800 py-2 px-3 focus:outline-none',
                 'placeholder': 'Enter your username'
+            }),
+            'email': forms.EmailInput(attrs={
+                'class': 'w-full text-slate-300 rounded-lg bg-slate-800 py-2 px-3 focus:outline-none',
+                'placeholder': 'Enter your email'
             }),
         }
 
@@ -34,14 +46,28 @@ class CustomUserCreationForm(UserCreationForm):
             user.save()
         return user
 
+
 class UserForm(ModelForm):
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = ['username', 'first_name', 'last_name', 'email']
         widgets = {
             'username': forms.TextInput(attrs={'class': 'w-full text-slate-300 rounded-lg bg-slate-800 py-2 px-3 focus:outline-none'}),
+            'first_name': forms.TextInput(attrs={'class': 'w-full text-slate-300 rounded-lg bg-slate-800 py-2 px-3 focus:outline-none'}),
+            'last_name': forms.TextInput(attrs={'class': 'w-full text-slate-300 rounded-lg bg-slate-800 py-2 px-3 focus:outline-none'}),
             'email': forms.TextInput(attrs={'class': 'w-full text-slate-300 rounded-lg bg-slate-800 py-2 px-3 focus:outline-none'}),
         }
+
+
+class UserProfileForm(ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['avatar', 'bio' ]
+        widgets = {
+            'bio': forms.Textarea(attrs={'class': 'w-full text-slate-300 rounded-lg bg-slate-800 py-2 px-3 focus:outline-none'}),
+            'avatar': forms.FileInput(attrs={'class': 'w-full text-slate-300 rounded-lg bg-slate-800 py-2 px-3 focus:outline-none'}),
+            }
+
 
 class RoomForm(ModelForm):
     class Meta:

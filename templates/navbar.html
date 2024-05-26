@@ -15,7 +15,7 @@
   </div>
 
   <!-- Search Bar -->
-  <div id="nav-searchbar" class="">{% include 'base/components/search_bar.html' %}</div>
+  <div id="nav-searchbar" class="w-[40%] flex items-center justify-center">{% include 'base/components/search_bar.html' %}</div>
 
   <!-- Profile Bar -->
   <div class="flex flex-row items-center gap-3">
@@ -30,9 +30,14 @@
         src="{{request.user.userprofile.avatar.url}}"
         class="w-10 h-10 rounded-full bg-slate-600 object-cover border-2 border-sky-400"
       />
-      <p id="profile-username" class="text-lg font-bold text-sky-400">
-        @{{request.user}}
-      </p>
+      <div id="profile-username" class="flex flex-col">
+        {% if request.user.first_name and request.user.last_name %}
+        <p class="text-lg font-bold">{{request.user.first_name}} {{request.user.last_name}}</p>
+        {% endif %}
+        <p class="text-lg font-bold text-sky-400">
+          @{{request.user}}
+        </p>
+      </div>
     </a>
 
     <!-- Logout -->

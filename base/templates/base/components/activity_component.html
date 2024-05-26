@@ -1,9 +1,6 @@
 {% load static %}
 
-<div
-
-  class="w-full h-full flex flex-col gap-2 bg-slate-700 rounded-lg "
->
+<div class="w-full h-full flex flex-col gap-2 bg-slate-700 rounded-lg">
   <!-- Title Bar -->
   <h4
     class="text-lg text-slate-400 font-semibold bg-slate-600 p-2 rounded-t-lg"
@@ -12,14 +9,10 @@
   </h4>
 
   <!-- Messages -->
-  <div class="flex flex-col gap-5 p-2 overflow-y-auto">
+  <div class="w-full flex flex-col gap-5 p-2 overflow-y-auto">
     {% for message in room_messages %}
     <div
-      class="flex flex-col gap-3 border-[1px] border-slate-500 rounded-lg p-2"
-    >
-    <a
-      href="{% url 'user-profile' message.user.id %}"
-      class="flex flex-row items-center gap-2"
+      class="w-full flex flex-col gap-3 border-[1px] border-slate-500 rounded-lg p-2"
     >
       <!-- Delete Button -->
       {% if request.user == message.user %}
@@ -31,11 +24,11 @@
       {% endif %}
 
       <!-- Activity Info -->
-      <div class="flex flex-row items-start gap-1">
-        <a href="{% url 'user-profile' message.user.id %}">
+      <div class="w-full flex flex-row items-start gap-1">
+        <a href="{% url 'user-profile' message.user.id %}" class="flex">
           <img
             src="{{message.user.userprofile.avatar.url}}"
-            class="w-12 h-10 rounded-full object-cover border-2 border-sky-400"
+            class="w-11 h-10 rounded-full object-cover border-2 border-sky-400"
           />
         </a>
 

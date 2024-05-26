@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from .models import Room, Topic, Message
-from .forms import RoomForm, CustomUserCreationForm, UserForm
+from .forms import RoomForm, CustomUserCreationForm, UserForm, UserProfileForm
 
 
 def loginPage(request):
@@ -161,14 +161,17 @@ def deleteMessage(request, pk):
 def updateUser(request):
     user = request.user
     form = UserForm(instance=user)
+    profileForm = UserProfileForm(instance=user.userprofile)
 
     if request.method == 'POST':
         form = UserForm(request.POST, instance=user)
-        if form.is_valid():
+        profileForm = UserProfileForm(request.POST, request.FILES, instance=user.userprofile)
+        if form.is_valid() and profileForm.is_valid():
             form.save()
+            profileForm.save()
             return redirect('user-profile', pk=user.id)
         else:
             messages.error(request, 'An error occured during profile update')
-            
-    context = {'form': form}
+
+    context = {'form': form, 'profile_form': profileForm}
     return render(request, 'base/pages/update-user.html', context)

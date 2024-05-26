@@ -43,7 +43,7 @@ class Message(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, null=True, blank=True)
-    avatar = models.ImageField(null=True, default='avatar.svg')
+    avatar = models.ImageField(upload_to='users/', null=True, default='avatar.svg')
 
     def __str__(self) -> str:
         return self.user.username

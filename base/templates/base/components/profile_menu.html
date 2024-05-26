@@ -4,9 +4,14 @@
 >
   {% if request.user.is_authenticated %}
   <!-- Username -->
-  <p class="text-sm font-bold text-sky-400 place-self-center">
-    @{{request.user}}
-  </p>
+  <div class="flex flex-col items-center justify-center">
+    {% if request.user.first_name and request.user.last_name %}
+    <p class="text-sm font-bold">{{request.user.first_name}} {{request.user.last_name}}</p>
+    {% endif %}
+    <p class="text-sm font-bold text-sky-400">
+      @{{request.user}}
+    </p>
+  </div>
 
   <!-- Logout Button -->
   <a

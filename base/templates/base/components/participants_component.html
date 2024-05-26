@@ -19,7 +19,11 @@
         class="w-10 h-10 rounded-full object-cover border-2 border-sky-400"
       />
       <div class="flex flex-col">
-        <small class="text-sm text-slate-300">{{user.username}}</small>
+        {% if user.first_name and user.last_name %}
+        <small class="text-sm">{{user.first_name}} {{user.last_name}}</small>
+        {% else %}
+        <small class="text-sm">{{user.username}}</small>
+        {% endif %}
         <small class="text-sm text-sky-400">@{{user.username}}</small>
       </div>
     </a>
