@@ -52,5 +52,21 @@ def getMessages(request):
     return Response(serializer.data)
 
 @api_view(['POST'])
-def createTopic():
-    pass
+def createTopic(request):
+    serializer = TopicSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        data = serializer.data
+        return Response(data)
+    return Response(serializer.errors)
+
+@api_view(['POST'])
+def createRoom(request):
+    serializer = RoomSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        data = serializer.data
+        return Response(data)
+    else:
+        print(serializer.data)
+        return Response(serializer.errors)
