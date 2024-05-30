@@ -8,17 +8,15 @@ class RoomSerializer(ModelSerializer):
         fields = ['name', 'topic', 'host', 'description']
 
 
-    # def create(self, validated_data):
-    #     # validated_data['host'] = self.context['request'].user
-    #     print(validated_data)
-    #     validated_data['topic'] = Topic.objects.get(name=validated_data['topic'])
-    #     return Room.objects.create(**validated_data)
-
-
 class TopicSerializer(ModelSerializer):
     class Meta:
         model = Topic
         fields = '__all__'
+
+
+    def create(self, validated_data):
+        topic, created = Topic.objects.get_or_create(name=validated_data['name'])
+        return topic
 
 
 class MessageSerializer(ModelSerializer):

@@ -16,26 +16,43 @@ def getRoutes(request):
     ]
     return Response(routes)
 
-@api_view(['GET'])
-def getRooms(request):
-    q = request.GET.get('q') if request.GET.get('q') != None else ''
+@api_view(['GET', 'POST'])
+def getRoomsOrCreateRoom(request):
+    if request.method == 'GET':
+        q = request.GET.get('q') if request.GET.get('q') != None else ''
 
-    rooms = Room.objects.filter(Q(topic__name__icontains=q) | Q(host__username=q) | Q(name__icontains=q) | Q(description__icontains=q))
+        rooms = Room.objects.filter(Q(topic__name__icontains=q) | Q(host__username=q) | Q(name__icontains=q) | Q(description__icontains=q))
 
-    serializer = RoomSerializer(rooms, many=True)
-    return Response(serializer.data)
+        serializer = RoomSerializer(rooms, many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = RoomSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            data = serializer.data
+            return Response(data)
+        return Response(serializer.errors)
 
 @api_view(['GET'])
 def getRoom(request, pk):
-    room = Room.objects.get(id=pk)
-    serializer = RoomSerializer(room, many=False)
-    return Response(serializer.data)
+        room = Room.objects.get(id=pk)
+        serializer = RoomSerializer(room, many=False)
+        return Response(serializer.data)
 
-@api_view(['GET'])
-def getTopics(request):
-    topics = Topic.objects.all()
-    serializer = TopicSerializer(topics, many=True)
-    return Response(serializer.data)
+
+@api_view(['GET', 'POST'])
+def getTopicsOrCreateTopic(request):
+    if request.method == 'GET':
+        topics = Topic.objects.all()
+        serializer = TopicSerializer(topics, many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = TopicSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            data = serializer.data
+            return Response(data)
+        return Response(serializer.errors)
 
 @api_view(['GET'])
 def getMessages(request):
@@ -51,22 +68,3 @@ def getMessages(request):
     serializer = MessageSerializer(messages, many=True)
     return Response(serializer.data)
 
-@api_view(['POST'])
-def createTopic(request):
-    serializer = TopicSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        data = serializer.data
-        return Response(data)
-    return Response(serializer.errors)
-
-@api_view(['POST'])
-def createRoom(request):
-    serializer = RoomSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        data = serializer.data
-        return Response(data)
-    else:
-        print(serializer.data)
-        return Response(serializer.errors)
