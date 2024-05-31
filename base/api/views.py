@@ -89,16 +89,23 @@ def getTopicsOrCreateTopic(request):
             return Response(data)
         return Response(serializer.errors)
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def getMessages(request):
-    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    if request.method == 'GET':
+        q = request.GET.get('q') if request.GET.get('q') != None else ''
 
-    try:
-        roomID = int(q)
-    except:
-        roomID = -1
+        try:
+            roomID = int(q)
+        except:
+            roomID = -1
 
-    messages = Message.objects.filter(Q(user__username=q) | Q(room__topic__name__icontains=q) | Q(room__id=roomID))
-
-    serializer = MessageSerializer(messages, many=True)
-    return Response(serializer.data)
+        messages = Message.objects.filter(Q(user__username=q) | Q(room__topic__name__icontains=q) | Q(room__id=roomID))
+        serializer = MessageSerializer(messages, many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = MessageSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            data = serializer.data
+            return Response(data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

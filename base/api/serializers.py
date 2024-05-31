@@ -5,7 +5,7 @@ from base.models import Room, Topic, Message
 class RoomSerializer(ModelSerializer):
     class Meta:
         model = Room
-        fields = ['name', 'topic', 'host', 'description']
+        fields = '__all__'
 
 
 class TopicSerializer(ModelSerializer):
