@@ -43,7 +43,7 @@
     <!-- Logout -->
     <a
       id="profile-logout"
-      href="{% url 'logout' %}"
+      href="{% url 'user-logout' %}"
       class="flex flex-row items-center bg-sky-200 rounded-lg px-2 py-1 gap-1"
     >
       <h1 class="text-lg text-sky-950">Logout</h1>
@@ -53,14 +53,14 @@
     {% else %}
 
     <!-- Login -->
-    <a id="profile-login" href="{% url 'login' %}">
+    <a id="profile-login" href="{% url 'user-login' %}">
       <h1 class="text-lg text-sky-950 py-1 px-2 bg-sky-200 rounded-lg">
         Login
       </h1>
     </a>
 
     <!-- Register -->
-    <a id="profile-register" href="{% url 'register' %}">
+    <a id="profile-register" href="{% url 'user-register' %}">
       <h1 class="text-lg text-sky-950 py-1 px-2 bg-sky-200 rounded-lg">
         Retister
       </h1>

@@ -9,3 +9,4 @@ urlpatterns = [
     path('topics', views.getTopicsOrCreateTopic),
     path('messages', views.getMessages),
 ]
+

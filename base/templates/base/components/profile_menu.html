@@ -1,45 +1,43 @@
-<div
-  id="profile-menu"
-  class="hidden flex flex-col items-start gap-3 bg-slate-700 border-2 border-sky-200 rounded-lg p-3 absolute top-10 right-0"
->
-  {% if request.user.is_authenticated %}
-  <!-- Username -->
-  <div class="flex flex-col items-center justify-center">
-    {% if request.user.first_name and request.user.last_name %}
-    <p class="text-sm font-bold">{{request.user.first_name}} {{request.user.last_name}}</p>
+<div id="profile-menu" class="hidden fixed inset-0 top-[65px] bg-black bg-opacity-50">
+  <div
+    class="h-screen w-[50%] flex flex-col items-start gap-3 bg-slate-700 border-2 border-sky-200 p-3 absolute right-0">
+    {% if request.user.is_authenticated %}
+    <!-- Username -->
+    <div class="flex flex-col items-center justify-center">
+      <!-- User Info -->
+      <a href="{% url 'user-profile' request.user.id %}" class="flex flex-row items-center gap-2">
+        <img id="profile-image" src="{{request.user.userprofile.avatar.url}}"
+          class="w-10 h-10 rounded-full bg-slate-600 object-cover border-2 border-sky-400" />
+        <div id="profile-username" class="flex flex-col">
+          {% if request.user.first_name and request.user.last_name %}
+          <p class="text-lg font-bold">{{request.user.first_name}} {{request.user.last_name}}</p>
+          {% endif %}
+          <p class="text-lg font-bold text-sky-400">
+            @{{request.user}}
+          </p>
+        </div>
+      </a>
+    </div>
+
+    <!-- Logout Button -->
+    <a href="{% url 'user-logout' %}" class="flex flex-row items-center gap-2 text-sky-200">
+      {% include 'base/components/logout_button.html' %}
+      <p class="text-sm font-bold">Logout</p>
+    </a>
+
+    {% else%}
+
+    <!-- Login Button -->
+    <a href="{% url 'user-login' %}" class="flex flex-row items-center gap-2 text-sky-200">
+      {% include 'base/components/login_button.html' %}
+      <p class="text-sm font-bold">Login</p>
+    </a>
+
+    <!-- Register Button -->
+    <a href="{% url 'user-register' %}" class="flex flex-row items-center gap-2 text-sky-200">
+      {% include 'base/components/login_button.html' %}
+      <p class="text-sm font-bold">Register</p>
+    </a>
     {% endif %}
-    <p class="text-sm font-bold text-sky-400">
-      @{{request.user}}
-    </p>
   </div>
-
-  <!-- Logout Button -->
-  <a
-    href="{% url 'logout' %}"
-    class="flex flex-row items-center gap-2 text-sky-200"
-  >
-    {% include 'base/components/logout_button.html' %}
-    <p class="text-sm font-bold">Logout</p>
-  </a>
-
-  {% else%}
-
-  <!-- Login Button -->
-  <a
-    href="{% url 'login' %}"
-    class="flex flex-row items-center gap-2 text-sky-200"
-  >
-    {% include 'base/components/login_button.html' %}
-    <p class="text-sm font-bold">Login</p>
-  </a>
-
-  <!-- Register Button -->
-  <a
-    href="{% url 'register' %}"
-    class="flex flex-row items-center gap-2 text-sky-200"
-  >
-    {% include 'base/components/login_button.html' %}
-    <p class="text-sm font-bold">Register</p>
-  </a>
-  {% endif %}
 </div>
