@@ -21,9 +21,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'base.apps.BaseConfig',
-
     'rest_framework',
+    'channels',
+    'base.apps.BaseConfig',
+    'chat.apps.ChatConfig',
 ]
 
 MIDDLEWARE = [
@@ -57,6 +58,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'studybuddy.wsgi.application'
+ASGI_APPLICATION = 'studybuddy.asgi.application'
 
 # Database
 DATABASES = {
@@ -69,7 +71,10 @@ DATABASES = {
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': (
+            'django.contrib.auth.password_validation'
+            '.UserAttributeSimilarityValidator'
+        ),
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
@@ -108,4 +113,13 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSIONS_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
+}
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [('127.0.0.1', 6379)],
+        }
+    }
 }

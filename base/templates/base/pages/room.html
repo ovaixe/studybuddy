@@ -1,4 +1,5 @@
 {% extends 'main.html' %} {% load static %} {% block content%}
+
 <div class="w-full lg:w-[80%] flex flex-col items-center gap-5">
   <!-- Search Bar -->
   <div id="searchbar">{% include 'base/components/search_bar.html' %}</div>
@@ -97,7 +98,7 @@
           >
             <h3 class="text-lg text-slate-400 font-bold">Conversation</h3>
 
-            <div class="overflow-y-auto flex flex-col gap-5 lg:px-5">
+            <div id="chat-log" class="overflow-y-auto flex flex-col gap-5 lg:px-5">
               {% for message in room_messages %}
               <div class="flex flex-row gap-3">
                 <div class="w-[2px] h-auto bg-slate-700 rounded-full"></div>
@@ -142,15 +143,19 @@
 
           {% if request.user.is_authenticated %}
           <div class="w-full">
-            <form method="POST" action="" class="w-full">
+            <form id="chat-form" method="POST" action="" class="w-full flex gap-3">
               {% csrf_token %}
 
               <input
+                required
+                id="chat-message-input"
                 type="text"
                 name="body"
                 placeholder="Write your message here..."
                 class="w-full bg-slate-600 rounded-lg py-1 px-3 focus:outline-none"
               />
+
+              <button type="submit" class="bg-sky-400 text-slate-800 p-1 rounded-md">Send</button>
             </form>
           </div>
           {% endif %}
@@ -164,4 +169,87 @@
     </div>
   </div>
 </div>
+
+<script>
+  const roomName = "{{ room.name }}";
+  const userName = "{{ request.user.username }}";
+
+  const chatSocket = new WebSocket(
+    'ws://' + window.location.host + '/ws/chat/' + roomName.replace(/ /g, "_") + '/'
+  );
+
+  // Handle incomming message
+  chatSocket.onmessage = function(e) {
+    const data = JSON.parse(e.data);
+    const chatLog = document.querySelector('#chat-log');
+
+    // Create a new message element
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('flex', 'flex-row', 'gap-3');
+
+    messageElement.innerHTML = `
+                <div class="w-[2px] h-auto bg-slate-700 rounded-full"></div>
+
+                <div
+                  class="w-full flex flex-col gap-1 items-start justify-center"
+                >
+                  <div
+                    class="w-full flex flex-row items-center justify-between"
+                  >
+                    <div class="flex flex-row items-center gap-5">
+                      <a
+                        href="/profile/${data.message.user.id}"
+                        class="flex flex-row items-center gap-2"
+                      >
+                        <img
+                          src="${data.message.user.userprofile.avatar.url}"
+                          class="w-8 h-8 rounded-full object-cover border-2 border-sky-400"
+                        />
+                        <small class="text-sky-400">@${data.message.user}</small>
+                      </a>
+                      <small class="text-slate-500"
+                        >${data.message.created|timesince} ago</small
+                      >
+                    </div>
+
+                    {% if request.user == data.message.user %}
+                    <a
+                      href="{% url 'delete-message' message.id %}"
+                      class="w-fit text-sm text-sky-400"
+                      >{% include 'base/components/delete_button.html' %}</a
+                    >
+                    {% endif %}
+                  </div>
+
+                  <p class="text-sm">${data.message.body}</p>
+                </div>
+    `;
+
+    // Append the new message to the chat chat log
+    chatLog.appendChild(messageElement);
+
+    // Scroll to the bottom of the chat log
+    chatLog.scrollTop = chatLog.scrollHeight;
+  };
+
+  // Handle WebSocket errors
+  chatSocket.onclose = function(e) {
+    console.error('Chat socket closed unexpectedly');
+  }
+
+  // Send message on form submission
+  document.querySelector('#chat-form').onsubmit = function(e) {
+    e.preventDefault();
+    const messageInput = document.querySelector('#chat-message-input');
+    const message = messageInput.value;
+
+    chatSocket.send(JSON.stringify({
+      'message': message,
+      'username': userName,
+      'room_name': roomName,
+    }));
+
+    messageInput.value = '';
+  }
+</script>
 {% endblock content%}
